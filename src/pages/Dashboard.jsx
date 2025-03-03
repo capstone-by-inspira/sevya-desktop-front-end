@@ -1,18 +1,23 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect , useState} from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal";
+import PatientForm from "../components/PatientForm";
+import CaregiverForm from "../components/CaregiverForm";
+
 
 const Dashboard = () => {
-  const navigate = useNavigate();
 
-const logout = () =>{
-    localStorage.removeItem('token');
-    navigate('/login');
-}  
+  
+
 
   return (
     <div>
       <h2>Welcome</h2>
-      <button onClick={logout}>Logout</button>
+      
+     <PatientForm />
+
+     
+<CaregiverForm/>
     </div>
   );
 };

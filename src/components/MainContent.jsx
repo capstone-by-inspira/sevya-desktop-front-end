@@ -7,6 +7,8 @@ import React, { useState, useEffect } from "react";
 // import VendorMain from "./VendorMain";
 import MainHeader from "./MainHeader";
 import Caregiver from "../pages/Caregiver";
+import Dashboard from "../pages/Dashboard";
+import Patient from "../pages/Patient";
 // import UserProfile from "./UserProfile";
 // import {
 //   readDataFromMongoWithParam,
@@ -26,13 +28,14 @@ const MainContent = ({
   const renderContent = () => {
     switch (activeItem) {
       case "home":
-        return <>home page</>;
+        return <><Dashboard setActiveItem ={setActiveItem}/></>;
       case "caregiver":
         return <><Caregiver/></>;
       case "patients":
-        return <>patients page</>;
+        return <><Patient/></>;
       case "shifts":
         return <>shifts page</>;
+
       
       default:
         return <div>Select an item</div>;
