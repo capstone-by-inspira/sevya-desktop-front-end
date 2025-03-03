@@ -6,13 +6,22 @@ import {signup} from '../services/api';
 export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    const user = {
+      email:email,
+      password:password,
+      firstName:firstName,
+      lastName:lastName,
+      collectionName:"admin"
+    }
     try {
-       const response =  await signup(email, password, name, "admin");
+       const response =  await signup(user);
        console.log(response);
         console.log("Signup Successful");
         navigate("/login");
@@ -25,7 +34,9 @@ export const Signup = () => {
     <div>
       <h2>Signup</h2>
       <form onSubmit={handleSignup}>
-        <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
+        <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+        <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit">Signup</button>

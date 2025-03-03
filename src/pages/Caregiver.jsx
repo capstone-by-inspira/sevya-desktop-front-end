@@ -1,11 +1,11 @@
 import React from 'react'
-import CaregiverSignupForm from '../components/CaregiveSignupForm'
+import CaregiverForm from '../components/CaregiverForm'
 
 const Caregiver = () => {
   return (
     <div>
        Sign up for caregiver
-      <CaregiverSignupForm/>
+      <CaregiverForm/>
     </div>
   )
 }
