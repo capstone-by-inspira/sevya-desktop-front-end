@@ -1,0 +1,16 @@
+.PatientCardHome1{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 0.3rem;
+    border: solid black 1px;
+
+}
+
+.PatientCardHome2{
+    grid-row: 1/4;
+    align-self: center;
+}
+
+.PatientCardHome3{
+    text-align: right;
+}

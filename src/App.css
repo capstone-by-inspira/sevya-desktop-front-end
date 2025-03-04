@@ -1,0 +1,17 @@
+.sidebar-container{
+    margin-right: 0.5rem;
+}
+
+.sidebar-container img{
+    padding: 1rem 0;
+}
+
+.sidebar-container-nav{
+    display: grid;
+    gap: 0.5rem;
+}
+
+.sidebar-container-nav a{
+    box-shadow: 0px -2px 2px 1px rgba(0, 0, 0, 0.5) inset;
+    padding: 0.2rem;
+}

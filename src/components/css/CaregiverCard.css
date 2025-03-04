@@ -1,0 +1,114 @@
+.card-header-caregiver {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    cursor: pointer;
+    border: solid black 1px;
+    padding: 0.5rem;
+    margin: 0;
+}
+
+.card-header-caregiver h2 {
+    margin-right: 10px;
+    padding: 0;
+    margin: 0;
+}
+
+.arrow1 {
+    grid-column: 3;
+    grid-row: 1;
+    text-align: right;
+}
+
+.arrow1.open1 {
+    transform: rotate(180deg); /* Rotate when open */
+    grid-column: 3;
+    grid-row: 1;
+    text-align: left;
+}
+
+.caregiverCard5{
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.edit-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.edit-icon {
+    color: #555; /* Change color */
+    font-size: 20px; /* Adjust size */
+    transition: color 0.3s ease;
+}
+
+.edit-icon:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+}
+
+.radio-input {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.radio-label {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cargiverCard2{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.cargiverCard3{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.caregiverCard1{
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.caregiverCard1 p,
+.caregiverCard1 button {
+    margin: 0;
+    padding: 0 0.2rem;
+    align-self: center;
+}
+
+.caregiverCard1 p{
+    text-align: left;
+}
+
+.caregiverCard1 button{
+    flex-grow: 1;
+    text-align: right;
+} 
+
+.caregiverCard4{
+    display: flex;
+    align-self: center;
+}
+
+.caregiverCard4 img{
+    align-self: center;
+    padding-right: 0.3rem;
+}
+

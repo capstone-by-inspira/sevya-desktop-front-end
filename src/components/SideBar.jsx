@@ -10,8 +10,10 @@ const SideBar = ({ activeItem, setActiveItem , user }) => {
   return (
     <>
       <aside className="sidebar-container">
-     
-        <nav>
+        <img src="" alt="Logo" />
+
+        <nav className="sidebar-container-nav">
+          
           <a
             onClick={() => setActiveItem("home")}
             className={`nav-item ${activeItem === "myevents" ? "active" : ""}`}
@@ -40,12 +42,13 @@ const SideBar = ({ activeItem, setActiveItem , user }) => {
             Shifts
           </a>
 
-          <a
+
+        </nav>
+        <h2
             className={`nav-item`}
           >
             Hello {user.name}
-          </a>
-        </nav>
+          </h2>
       </aside>
     </>
   );

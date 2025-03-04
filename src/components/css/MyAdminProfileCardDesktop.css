@@ -1,0 +1,14 @@
+.myadminprofilecard{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    border: solid black 1px;
+    padding: 1rem;
+}
+
+.myadminprofilecardsection{
+    border-bottom: solid black 1px;
+    padding-bottom: 1rem;
+}
+
+

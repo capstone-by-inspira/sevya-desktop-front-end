@@ -1,0 +1,11 @@
+.ShiftCard{
+    display: grid;
+    grid-template-columns: 1fr;
+    border: solid black 1px;
+    padding: 0.3rem;
+}
+
+.ShiftCard1{
+    display: flex;
+
+}

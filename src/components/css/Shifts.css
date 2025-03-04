@@ -1,0 +1,12 @@
+.Shiftscards1{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.Shiftscards2{
+    grid-column: 2/3;
+    grid-row: 1/4;
+}
+
+
