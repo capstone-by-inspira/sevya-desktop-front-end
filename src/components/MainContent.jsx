@@ -1,26 +1,19 @@
 import React, { useState, useEffect } from "react";
-//  import Overview from "./Overview";
-// import BudgetCalculator from "./BudgetCalculator";
-// import GuestManagementMain from "./GuestManagementMain";
-// import Collaborators from "./Collaborators";
-// import VendorsList from "./VendorsList";
-// import VendorMain from "./VendorMain";
+
 import MainHeader from "./MainHeader";
 import Caregiver from "../pages/Caregiver";
 import Dashboard from "../pages/Dashboard";
 import Patient from "../pages/Patient";
-// import UserProfile from "./UserProfile";
-// import {
-//   readDataFromMongoWithParam,
-//   readCollaboratorsEventsFromMongo,
-//   readDataFromMongoBasedOnEmail,
-// } from '../../api/mongoRoutingFile';
+import Shifts from "../pages/Shifts";
 
 const MainContent = ({
   activeItem,
   setActiveItem,
-
- 
+  patients,
+  caregivers,
+  shifts,
+  refreshData,
+  user
 
 }) => {
   const [showHeaderControls, setShowHeaderControls] = useState(false);
@@ -28,15 +21,13 @@ const MainContent = ({
   const renderContent = () => {
     switch (activeItem) {
       case "home":
-        return <><Dashboard setActiveItem ={setActiveItem}/></>;
+        return <><Dashboard setActiveItem ={setActiveItem} caregivers ={caregivers} patients ={patients} user={user}/></>;
       case "caregiver":
-        return <><Caregiver/></>;
+        return <><Caregiver caregivers={caregivers} refreshData={refreshData}/></>;
       case "patients":
-        return <><Patient/></>;
+        return <><Patient patients={patients} refreshData={refreshData}/></>;
       case "shifts":
-        return <>shifts page</>;
-
-      
+        return <><Shifts patients={patients} caregivers={caregivers} refreshData={refreshData} shifts={shifts}/></>;
       default:
         return <div>Select an item</div>;
     }
@@ -46,7 +37,7 @@ const MainContent = ({
     <div className="main-content-root">
       <MainHeader
      
-        
+        user  = {user}
         setActiveItem={setActiveItem}
     
         showHeaderControls={showHeaderControls}

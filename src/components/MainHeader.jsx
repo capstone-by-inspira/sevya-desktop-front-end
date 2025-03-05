@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const MainHeader = () => {
+const MainHeader = ({user}) => {
    
   
 
@@ -15,7 +15,7 @@ const navigate = useNavigate();
     return (
 
         <header className="main-header-root">
-         HEADER
+         Welcome {user.name}
          <button onClick = {()=>{
             localStorage.removeItem('token');
             localStorage.removeItem('user');

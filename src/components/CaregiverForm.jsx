@@ -23,21 +23,21 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 const steps = ["Personal Info", "Availability", "Documents", "Review & Submit"];
 
 const API_URL = "http://localhost:8800/api";
-const CaregiverForm = () => {
+const CaregiverForm = ({ refreshData }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
 
   const [caregiverData, setCaregiverData] = useState({
-    firstName: "",
-    lastName: "",
-    password: "",
-    email: "",
-    phoneNumber: "",
-    licenseNumber: "",
-    specialization: "",
-    experienceYears: "",
-    availability: [],
-    collectionName:"caregiver"
+    firstName: "greta",
+    lastName: "chem",
+    password: "greta123",
+    email: "greta@gmail.com",
+    phoneNumber: "998128",
+    licenseNumber: "999377",
+    specialization: "childcare",
+    experienceYears: "4",
+    availability: ["monday"],
+    collectionName: "caregivers",
   });
 
   const handleChange = (e) => {
@@ -62,25 +62,13 @@ const CaregiverForm = () => {
     experience: "",
   });
 
-  //   const handleChange = (e) => {
-  //     setFormData({ ...formData, [e.target.name]: e.target.value });
-  //   };
-
-  // const handleSubmit = () => {
-  //     console.log("Caregiver Data Submitted:", caregiverData);
-  //   //  handleSubmitSignUp();
-  //   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
     console.log("Caregiver Data Submitted:", caregiverData);
-
     try {
-      await signup(
-        caregiverData
-      );
+      await signup(caregiverData);
       console.log("Caregiver account created successfully");
+      refreshData();
     } catch (error) {
       console.error("Signup Error:", error);
     }
@@ -88,12 +76,13 @@ const CaregiverForm = () => {
 
   return (
     <Modal
-      buttonId="addCaregiver "
+      buttonId="addCaregiver"
       buttonLabel="Add New Caregiver"
       modalHeaderTitle="New Caregiver Detail"
       modalBodyHeader="Add detail over here"
       modalBodyContent={
-        <div>
+        <div className="modal-form">
+          <div className="modal-form-header">
           <Stepper activeStep={activeStep} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
@@ -101,13 +90,15 @@ const CaregiverForm = () => {
               </Step>
             ))}
           </Stepper>
+          </div>
 
-          <div style={{ marginTop: 20 }}>
+          <div className="modal-form-body">
             {activeStep === 0 && (
               <div>
                 <TextField
                   label="First Name"
                   name="firstName"
+                  value={caregiverData.firstName}
                   fullWidth
                   margin="normal"
                   onChange={handleChange}
@@ -115,6 +106,7 @@ const CaregiverForm = () => {
                 <TextField
                   label="Last Name"
                   name="lastName"
+                  value={caregiverData.lastName}
                   fullWidth
                   margin="normal"
                   onChange={handleChange}
@@ -122,6 +114,7 @@ const CaregiverForm = () => {
                 <TextField
                   label="Email"
                   name="email"
+                  value={caregiverData.email}
                   fullWidth
                   margin="normal"
                   onChange={handleChange}
@@ -129,6 +122,7 @@ const CaregiverForm = () => {
                 <TextField
                   label="Password"
                   name="password"
+                  value={caregiverData.password}
                   type={showPassword ? "text" : "password"}
                   fullWidth
                   margin="normal"
@@ -147,6 +141,7 @@ const CaregiverForm = () => {
                 <TextField
                   label="Phone Number"
                   name="phoneNumber"
+                  value={caregiverData.phoneNumber}
                   fullWidth
                   margin="normal"
                   onChange={handleChange}
@@ -154,6 +149,7 @@ const CaregiverForm = () => {
                 <TextField
                   label="License Number"
                   name="licenseNumber"
+                  value={caregiverData.licenseNumber}
                   fullWidth
                   margin="normal"
                   onChange={handleChange}
@@ -166,6 +162,7 @@ const CaregiverForm = () => {
                 <TextField
                   label="Specialization"
                   name="specialization"
+                  value={caregiverData.specialization}
                   fullWidth
                   margin="normal"
                   onChange={handleChange}
@@ -174,6 +171,7 @@ const CaregiverForm = () => {
                   label="Years of Experience"
                   name="experienceYears"
                   type="number"
+                  value={caregiverData.experienceYears}
                   fullWidth
                   margin="normal"
                   onChange={handleChange}
@@ -186,6 +184,7 @@ const CaregiverForm = () => {
                 <TextField
                   label="Document URLs (comma-separated)"
                   name="documents"
+                  value={caregiverData.documents}
                   fullWidth
                   margin="normal"
                   onChange={(e) =>
@@ -225,7 +224,10 @@ const CaregiverForm = () => {
               </div>
             )}
 
-            <div style={{ marginTop: 20 }}>
+            
+          </div>
+          <div className="modal-form-footer">
+
               <Button disabled={activeStep === 0} onClick={handleBack}>
                 Back
               </Button>
@@ -246,7 +248,6 @@ const CaregiverForm = () => {
                   Next
                 </Button>
               )}
-            </div>
           </div>
         </div>
       }

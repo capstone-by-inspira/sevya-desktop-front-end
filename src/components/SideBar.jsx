@@ -9,7 +9,7 @@ const SideBar = ({ activeItem, setActiveItem , user }) => {
 
   return (
     <>
-      <aside className="sidebar-container">
+      <aside className="sidebar-inside-container">
      
         <nav>
           <a

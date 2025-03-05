@@ -24,62 +24,65 @@ export const logout = () => {
 };
 
 
-// crud functions
+export const deleteUserFromAuthentication = async (uid) => {
+  try {
+    const response = await axios.delete(`${API_URL}/auth/deleteUser`, {
+      data: { uid }, 
+    });
 
+    return response.data;
+  } catch (error) {
+    console.error("delete:", error);
+    throw error;
+  }
+};
 
 
 const token = localStorage.getItem("token");
 
-// export const createUser = async (name, email) => {
-//   const response = await axios.post(
-//     `${API_URL}/users`,
-//     { name, email },
-//     { headers: { Authorization: `Bearer ${token}` } }
-//   );
-//   return response.data;
-// };
 
-// export const getUsers = async () => {
-//   const response = await axios.get(`${API_URL}/users`, {
-//     headers: { Authorization: `Bearer ${token}` },
-//   });
-//   return response.data;
-// };
 
-// export const updateUser = async (id, name, email) => {
-//   const response = await axios.put(
-//     `${API_URL}/users/${id}`,
-//     { name, email },
-//     { headers: { Authorization: `Bearer ${token}` } }
-//   );
-//   return response.data;
-// };
 
-// export const deleteUser = async (id) => {
-//   const response = await axios.delete(`${API_URL}/users/${id}`, {
-//     headers: { Authorization: `Bearer ${token}` },
-//   });
-//   return response.data;
-// };
+// const apiRequest = async (method, endpoint, data = {}, token = "") => {
+//   console.log(method, 'method');
+//   console.log(endpoint, 'endpoint');
+//   console.log(data, 'data');
+//   console.log(token, 'token');
+//   try {
+//     const response = await axios({
+//       method,
+//       url: `${API_URL}/document/${endpoint}`,
+//       data,
+//       headers: token ? { Authorization: `Bearer ${token}` } : {},
+//     });
 
+//     return { success: true, data: response.data };
+//   } catch (error) {
+//     return { success: false, error: error.response?.data?.error || "Something went wrong" };
+//   }
+// };
 
 
 const apiRequest = async (method, endpoint, data = {}, token = "") => {
-  console.log(method, 'method');
-  console.log(endpoint, 'endpoint');
-  console.log(data, 'data');
-  console.log(token, 'token');
   try {
-    const response = await axios({
+    const config = {
       method,
       url: `${API_URL}/document/${endpoint}`,
-      data,
       headers: token ? { Authorization: `Bearer ${token}` } : {},
-    });
+    };
 
+    if (method !== "GET") {
+      config.data = data;
+    }
+
+    const response = await axios(config);
     return { success: true, data: response.data };
   } catch (error) {
-    return { success: false, error: error.response?.data?.error || "Something went wrong" };
+    console.error("API Error:", error.response?.data || error.message);
+    return { 
+      success: false, 
+      error: error.response?.data?.error || error.message || "Something went wrong" 
+    };
   }
 };
 

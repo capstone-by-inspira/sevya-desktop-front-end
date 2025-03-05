@@ -1,13 +1,16 @@
 import React from 'react'
 
-import { useContext, useEffect , useState} from "react";
 import PatientForm from '../components/PatientForm';
+import PatientList from '../components/PatientList';
 
 
-const Patient = () => {
+const Patient = ({patients, refreshData}) => {
+
   return (
     <div>
-      <PatientForm/>
+      <PatientForm refreshData={refreshData}/>
+      <PatientList patients={patients} refreshData={refreshData} />
+
     </div>
   )
 }

@@ -78,7 +78,7 @@ const Modal = ({
         className={`${modalActive == true ? ('four') : modalActive == false ? ( 'fourClose') :modalActive == null ? ('') : '' }`} >
              
         <div className="modal-background">
-          <div className="modal-togather">
+          <div className="modal-sevya">
 
             <div className="modal-header">
               <div className="modal-header-title">
@@ -86,26 +86,18 @@ const Modal = ({
                 <i className="fa-solid fa-xmark close" onClick={() => { setModalActive(null); }}></i>
 
               </div>
-              <div className='modal-header-description'><h5>{modalHeaderDescription}</h5></div>
-            </div>
+              </div>
 
-            <hr />
+
 
             <div className="modal-body">
               <h5 className='modal-body-header'>{modalBodyHeader}</h5>
               <>{modalBodyContent}</>
             </div>
 
-            <hr />
+            
 
-            <div className="modal-footer" style={{ flexFlow: `${buttonAlign}` }}>
-              {saveDataAndOpenId != '' ? <button className='modal-submit-button-open' id={saveDataAndOpenId} onClick={handleModalClickOpen}>{saveDataAndOpenName}</button> : <></>}
-
-              {saveDataAndCloseId != '' ? <button className='modal-submit-button-close' id={saveDataAndCloseId} onClick={handleModalClickClose}>{saveDataAndCloseName}</button> : <></>}
-
-              {closeButtonID != '' ? <button className='modal-close-button' id={closeButtonID} onClick={() => { setModalActive(null); }}>{closeButtonName}</button> : <></>}
-
-            </div>
+            
 
           </div>
         </div>

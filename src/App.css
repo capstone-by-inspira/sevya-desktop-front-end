@@ -1,4 +1,4 @@
-.modal {
+/* .modal {
     width: 400px;
     height: 250px;
     color: #fff;
@@ -30,4 +30,28 @@
   .modal-close-button:hover,
   .modal-close-button:focus {
     background-color: #e8daff;
-  }
+  } */
+
+.modal-form{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.modal-form-body{
+height:350px;
+overflow-y: auto ;
+}
+
+.patient-card{
+  border:1px solid black;
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+}
+.shift-board{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 4rem;
+
+}

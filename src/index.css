@@ -14,12 +14,16 @@
   
 }
 
+body{
+  margin: 0;
+}
 
 
 
 .main-container {
   display: grid;
   grid-template-columns: 20% 80%;
+  height: 100vh;
 }
 
 .sidebar-container {
@@ -27,13 +31,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5rem;
+  margin: 1rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   nav {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 50px;
+
   }
 }
 
@@ -48,7 +54,9 @@
 
 
 
-
+h1,h2,h3,h4,h5,h6{
+  margin: 0;
+}
 
 h1 {
   font-size: clamp(32px, 4vw, 48px);
@@ -110,7 +118,6 @@ span{
 .container {
   display: flex;
   width: 100vw;
-  max-height: 100vh;
 }
 
 #modal-container {
@@ -154,7 +161,7 @@ span{
 
 
 
-    .modal-togather {
+    .modal-sevya {
 
       background: white;
       width: 90%;
@@ -363,7 +370,7 @@ span{
 }
 
 
-.modal-togather {
+.modal-sevya {
   background-color: white;
 }
 
@@ -375,7 +382,7 @@ span{
 
 .main-content {
   padding: 1rem 1rem;
- min-height: 100vh;
+
   margin: auto;
 }
 

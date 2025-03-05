@@ -7,9 +7,6 @@ export const RefreshHandler = ({ setIsAuthenticated }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
-
-    // const token = userData ? JSON.parse(userData).token : null;
   console.log(token);
     if (token) {
       setIsAuthenticated(true);
@@ -26,7 +23,7 @@ export const RefreshHandler = ({ setIsAuthenticated }) => {
     }
   }, [location.pathname, navigate, setIsAuthenticated]);
 
-  // ammy
+
   
   
   return null;
