@@ -1,25 +1,41 @@
-// import React from "react";
-// import { useDrag } from "react-dnd";
+import React from "react";
+import { useDrag } from "react-dnd";
 
-// const CaregiverCard = ({ caregiver }) => {
-//   const [{ isDragging }, drag] = useDrag({
-//     type: "CAREGIVER",
-//     item: { caregiverId: caregiver.id },
-//     collect: (monitor) => ({
-//       isDragging: !!monitor.isDragging(),
-//     }),
-//   });
+const CaregiverCard = ({ caregiver, removeCaregiver, time, patientId}) => {
 
-//   return (
-//     <div
-//       ref={drag}
-//       className={`bg-white p-4 rounded-lg shadow-md cursor-pointer ${
-//         isDragging ? "opacity-50" : ""
-//       }`}
-//     >
-//       <h3 className="text-md font-semibold">{caregiver.firstName} {caregiver.lastName}</h3>
-//     </div>
-//   );
-// };
 
-// export default CaregiverCard;
+  const [{ isDragging }, drag] = useDrag({
+    type: "CAREGIVER",
+    item: caregiver,
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  });
+
+  return (
+    <div
+      ref={drag}
+      className={`caregiver-card ${
+        isDragging ? "opacity-50" : ""
+      }`}
+    >
+      {caregiver.firstName}
+    
+        {/* <button
+          onClick={() => removeCaregiver(caregiver, patientId, time)}
+          className="delete-btn"
+        >
+          Remove
+        </button> */}
+        <i className="fa-solid fa-xmark close"   onClick={() => removeCaregiver(caregiver, patientId, time)}></i>
+
+
+    
+    </div>
+  );
+};
+
+
+
+export default CaregiverCard;
+

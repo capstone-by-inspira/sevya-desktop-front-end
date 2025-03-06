@@ -205,7 +205,7 @@ const ShiftScheduleBoard = ({caregivers, patients, shifts, refreshData}) => {
                 </tbody>
             </table>
 
-            <div className="flex flex-wrap">
+            {/* <div className="flex flex-wrap">
         {patients.map((patient) => (
           <PatientCard
           key={patient.id}
@@ -219,7 +219,7 @@ const ShiftScheduleBoard = ({caregivers, patients, shifts, refreshData}) => {
           setSelectedLocation={setSelectedLocation}
         />
       ))}
-     </div>
+     </div> */}
       </div>
     );
 };

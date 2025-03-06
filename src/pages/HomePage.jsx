@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import SideBar from "../components/SideBar";
 import MainContent from "../components/MainContent";
 import { getDocuments } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export const HomePage = () => {
+  const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState("home");
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [caregivers, setCaregivers] = useState([]);
@@ -17,6 +19,8 @@ export const HomePage = () => {
       fetchPatients();
       fetchCaregivers();
       fetchShifts();
+    }else{
+      console.log('tttttttt');
     }
   }, [token]);
 
