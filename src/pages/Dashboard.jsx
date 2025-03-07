@@ -5,6 +5,7 @@ import PatientForm from "../components/PatientForm";
 import CaregiverForm from "../components/CaregiverForm";
 import CaregiverAvailabilityChart from "../components/CaregiverAvailabilityChart";
 import CaregiverShiftPieChart from "../components/CaregiverShiftDistrubutionChart";
+import Gemini from "../components/TestingComponent";
 
 const Dashboard = ({ caregivers, patients, user }) => {
   console.log(user);
@@ -19,7 +20,8 @@ const Dashboard = ({ caregivers, patients, user }) => {
         <div className="dashboard-first-container">
 
           <div className="dashboard-left-container">
-
+            
+<Gemini/>
             <div className="dashboard-patient-card">
               <h3 className="font-400">Total Patients : {patients.length}</h3>
             </div>

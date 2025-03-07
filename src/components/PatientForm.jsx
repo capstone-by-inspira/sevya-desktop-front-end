@@ -48,6 +48,7 @@ const PatientForm = ({
     insuranceDetails: { provider: "jason", policyNumber: "jl112" },
     admissionDate: "20-10-2025",
     dischargeDate: "25-10-2025",
+    shifts:{}
   });
 
   useEffect(() => {
