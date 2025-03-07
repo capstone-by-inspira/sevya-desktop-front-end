@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
 import Modal from "../components/Modal";
-import { createDocument, getDocuments } from "../services/api";
+import { createDocument, getDocuments, updateDocument } from "../services/api";
 
 import {
   Stepper,
@@ -21,10 +21,20 @@ const steps = [
   "Review & Submit",
 ];
 
-const PatientForm = ({ refreshData }) => {
+const PatientForm = ({
+  refreshData,
+  singlePatientData,
+  openForm,
+  closeForm,
+  isEdit,
+}) => {
+  const token = localStorage.getItem('token');
+
   const [activeStep, setActiveStep] = useState(0);
 
-  const token = localStorage.getItem("token");
+  const [isModalOpen, setIsModalOpen] = useState(openForm);
+
+  const [isUpdate, setIsUpdate] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "john",
@@ -39,6 +49,25 @@ const PatientForm = ({ refreshData }) => {
     admissionDate: "20-10-2025",
     dischargeDate: "25-10-2025",
   });
+
+  useEffect(() => {
+    if (openForm) {
+      setIsModalOpen(true); // Open modal when isEdit is true
+      setIsUpdate(false);
+    } else {
+      setIsModalOpen(null); // Close modal when isEdit is false
+    }
+  }, [openForm]); //
+
+  useEffect(() => {
+    if (isEdit) {
+      setIsModalOpen(true); // Open modal when isEdit is true
+      setFormData(singlePatientData[0]);
+      setIsUpdate(true);
+    } else {
+      setIsModalOpen(null); // Close modal when isEdit is false
+    }
+  }, [isEdit]); //
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,18 +100,46 @@ const PatientForm = ({ refreshData }) => {
     const result = await createDocument("patients", formData, token);
     if (result.success) {
       console.log("document created");
+      closeModal();
       refreshData();
     } else {
       console.error(result.error);
     }
   };
 
-  const handleCustomSheetGuestData = () => {};
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    const updatedData = {
+      ...formData,
+    };
+    console.log("Patient Data Updates:", updatedData);
+    // console.log("Caregiver Data Updates:", singleCaregiverData.id);
+    try {
+      await updateDocument("patients", updatedData.id, updatedData, token);
+      console.log("Patient updated successfully");
+      closeModal()
+      refreshData();
+    } catch (error) {
+      console.error("Signup Error:", error);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(null);
+    closeForm();
+    console.log("trigger hoia");
+  };
+
   return (
     <>
       <Modal
-        buttonId="addNewPatient "
-        buttonLabel="Add New Patient"
+        isOpen={isModalOpen}
+        closeModal={closeModal}
         modalHeaderTitle="New Patient Detail"
         modalBodyHeader="Add patient details over here"
         modalBodyContent={
@@ -270,25 +327,24 @@ const PatientForm = ({ refreshData }) => {
                   Next
                 </Button>
               ) : (
-                <Button
+                (!isUpdate ? <Button
                   variant="contained"
                   color="primary"
                   onClick={handleSubmit}
                 >
                   Submit
-                </Button>
+                </Button> :
+                <Button
+                variant="contained"
+                color="primary"
+                onClick={handleUpdate}
+              >
+                Update
+              </Button>) 
               )}
             </div>
           </div>
         }
-        saveDataAndOpenName="Save"
-        saveDataAndOpenId="save"
-        saveDataAndOpenFunction={() => handleCustomSheetGuestData()}
-        closeButtonID="closeSheet"
-        closeButtonName="Close"
-        buttonAlign="row"
-        onModalClose={() => console.log("Modal 1 closed")}
-        closeModalAfterDataSend="true"
       />
     </>
   );

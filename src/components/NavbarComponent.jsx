@@ -11,7 +11,7 @@ const Navbar = () => {
       {user ? (
         <>
           <Link to="/dashboard">Dashboard</Link>
-          <button onClick={logout}>Logout</button>
+          <button className="sevya-button" onClick={logout}>Logout</button>
         </>
       ) : (
         <>

@@ -16,7 +16,8 @@ const navigate = useNavigate();
 
         <header className="main-header-root">
          Welcome {user.name}
-         <button onClick = {()=>{
+         <button  className='sevya-button-inverse logout'
+         onClick = {()=>{
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             navigate('/login');

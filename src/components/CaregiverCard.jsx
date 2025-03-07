@@ -2,8 +2,8 @@ import React from "react";
 import { useDrag } from "react-dnd";
 
 const CaregiverCard = ({ caregiver, removeCaregiver, time, patientId}) => {
-
-
+//console.log(caregiver, 'card care')
+//console.log(caregiver, 'whats care');
   const [{ isDragging }, drag] = useDrag({
     type: "CAREGIVER",
     item: caregiver,
@@ -19,7 +19,8 @@ const CaregiverCard = ({ caregiver, removeCaregiver, time, patientId}) => {
         isDragging ? "opacity-50" : ""
       }`}
     >
-      {caregiver.firstName}
+      {caregiver.firstName} {caregiver.lastName} 
+
     
         {/* <button
           onClick={() => removeCaregiver(caregiver, patientId, time)}

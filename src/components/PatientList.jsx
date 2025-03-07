@@ -10,20 +10,45 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
-const PatientList = ({patients, refreshData}) => {
+import PatientForm from './PatientForm';
+const PatientList = ({patients, refreshData, closeForm, openForm}) => {
     const token = localStorage.getItem("token");
+    const [singlePatientData, setSinglePatientData] = useState();
+    const [isEdit, setIsEdit] = useState(null);
+  
 
 
     const handleDelete = async (id) => {
         await deleteDocument("patients", id, token);
         refreshData(); 
       };
-
+      const handleEdit = async (id) => {
+        const filteredPatient = filterById(patients, id);
+        setSinglePatientData(filteredPatient);
+        console.log(filteredPatient);
+        setIsEdit(true);
+      };
+      const filterById = (patients, patientId) => {
+        console.log(patientId);
+        return patients.filter((patient) => patient.id == patientId);
+      };
+      const closeModal = () => {
+        setIsEdit(null);
+        closeForm();
+      };
 
   
   return (
     <div>
-       <h3>Patient List</h3>
+       <h3 className='visually-hidden'>Patient List</h3>
+       <PatientForm
+
+       singlePatientData={singlePatientData}
+       refreshData={refreshData}
+       isEdit={isEdit}
+       closeForm={closeModal}
+
+       />
        <div>
       {patients.map((patient) => (
         <Accordion key={patient.id}>
@@ -38,11 +63,11 @@ const PatientList = ({patients, refreshData}) => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>Email: {patient.email}</Typography>
-            <Typography>Phone: {patient.phone || "N/A"}</Typography>
+            <Typography>Phone: {patient.phoneNumber || "N/A"}</Typography>
             <Typography>Address: {patient.address || "N/A"}</Typography>
           </AccordionDetails>
           <AccordionActions>
-            <Button color="primary" onClick={() => handleEdit(patient)}>
+            <Button color="primary" onClick={() => handleEdit(patient.id)}>
               Edit
             </Button>
             <Button color="error" onClick={() => handleDelete(patient.id)}>

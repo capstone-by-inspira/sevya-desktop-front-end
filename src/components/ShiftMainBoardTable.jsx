@@ -189,6 +189,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   
       if (patientUpdateResult.success) {
         console.log("Caregiver removed from patient document successfully");
+        refreshData();
       } else {
         console.error("Error updating patient document:", patientUpdateResult.error);
       }
@@ -383,9 +384,9 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
 
           <button
             onClick={addTimeSlot}
-            className="ml-4 p-2 bg-blue-500 text-white"
+            className="sevya-button"
           >
-            Create Shift Slot
+            Create Shift
           </button>
         </div>
 
@@ -402,6 +403,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
                 timeSlots={timeSlots}
                 assignCaregiver={assignCaregiver}
                 removeCaregiver={removeCaregiver}
+                caregivers={caregivers}
 
               />
             </div>

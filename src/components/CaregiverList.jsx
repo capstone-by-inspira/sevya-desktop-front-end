@@ -1,32 +1,82 @@
-import React from 'react'
+// REQUIRED
+import React from "react";
 import { useContext, useEffect, useState } from "react";
 
-import {deleteDocument, deleteUserFromAuthentication} from '../services/api'
+import { createDocument, getDocuments, deleteDocument } from "../services/api";
 
-const CaregiverList = ({caregivers, refreshData}) => {
-    const token = localStorage.getItem("token");
+import Accordion from "@mui/material/Accordion";
+import AccordionActions from "@mui/material/AccordionActions";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Button from "@mui/material/Button";
+import CaregiverForm from "./CaregiverForm";
+const CaregiverList = ({ caregivers, refreshData, closeForm, openForm }) => {
+  const token = localStorage.getItem("token");
+  const [singleCaregiverData, setSingleCaregiverData] = useState();
+  const [isEdit, setIsEdit] = useState(null);
 
-    const handleDelete = async (id) => {
-        await deleteDocument("caregivers", id, token);
-        await deleteUserFromAuthentication(id);
-        refreshData(); 
-      };
+  const handleDelete = async (id) => {
+    await deleteDocument("caregivers", id, token);
+    refreshData();
+  };
 
-   
+  const handleEdit = async (id) => {
+    const filteredCaregiver = filterById(caregivers, id);
+    setSingleCaregiverData(filteredCaregiver);
+    console.log(filteredCaregiver);
+    setIsEdit(true);
+  };
+
+  const filterById = (caregivers, caregiverId) => {
+    console.log(caregivers);
+    console.log(caregiverId);
+    return caregivers.filter((caregiver) => caregiver.id == caregiverId);
+  };
+  const closeModal = () => {
+    setIsEdit(null);
+    closeForm();
+  };
   return (
     <div>
-       <h3>Caregiver List</h3>
-      <ul>
+      <h3 className="visually-hidden">Caregiver List</h3>
+      <CaregiverForm
+        singleCaregiverData={singleCaregiverData}
+        refreshData={refreshData}
+        isEdit={isEdit}
+        closeForm={closeModal}
+      />
+      <div>
         {caregivers.map((caregiver) => (
-          <li key={caregiver.id}>
-            {caregiver.firstName} {caregiver.lastName} - {caregiver.email}
-            <button onClick={() => handleEdit(caregiver)}>Edit</button>
-            <button onClick={() => handleDelete(caregiver.id)}>Delete</button>
-          </li>
+          <Accordion key={caregiver.id}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`panel-${caregiver.id}-content`}
+              id={`panel-${caregiver.id}-header`}
+            >
+              <Typography component="span">
+                {caregiver.firstName} {caregiver.lastName}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>Email: {caregiver.email}</Typography>
+              <Typography>Phone: {caregiver.phoneNumber || "N/A"}</Typography>
+              <Typography>Address: {caregiver.address || "N/A"}</Typography>
+            </AccordionDetails>
+            <AccordionActions>
+              <Button color="primary" onClick={() => handleEdit(caregiver.id)}>
+                Edit
+              </Button>
+              <Button color="error" onClick={() => handleDelete(caregiver.id)}>
+                Delete
+              </Button>
+            </AccordionActions>
+          </Accordion>
         ))}
-      </ul>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default CaregiverList
+export default CaregiverList;

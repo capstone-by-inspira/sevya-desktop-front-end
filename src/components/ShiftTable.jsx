@@ -1,9 +1,11 @@
 import React from "react";
+import { useState, useEffect } from "react";
+
 import { useDrop } from "react-dnd";
 import CaregiverCard from "./CaregiverCard";
+import { getDocumentById } from "../services/api";
 
-const ShiftTable = ({ patientsData, dates, assignCaregiver , timeSlots, removeCaregiver}) => {
- // console.log(patientsData[0]);
+const ShiftTable = ({ patientsData, dates, assignCaregiver , timeSlots, removeCaregiver , caregivers}) => {
   return (
     <table className="patients-table">
       <thead>
@@ -31,6 +33,7 @@ const ShiftTable = ({ patientsData, dates, assignCaregiver , timeSlots, removeCa
                   caregiver={patient.shifts[time]}
                   assignCaregiver={assignCaregiver}
                   removeCaregiver={removeCaregiver}
+                  caregivers={caregivers}
                 />
               </td>
             ))}
@@ -41,7 +44,26 @@ const ShiftTable = ({ patientsData, dates, assignCaregiver , timeSlots, removeCa
   );
 };
 
-const DropZone = ({ patientId, caregiver, assignCaregiver , time, removeCaregiver}) => {
+
+const DropZone =  ({ patientId, caregiver, assignCaregiver , time, removeCaregiver, caregivers}) => {
+ // console.log(caregiver?.id, 'dropzone');
+  const [careGiver, setCareGiver] = useState(caregiver);
+  useEffect(() => {
+
+    const fetchCaregiverData = async () => {
+      if (caregiver?.id) {
+        const cr = caregivers.find((c) => c.id == caregiver.id); // Use find instead of filter to get a single object
+        setCareGiver(cr);
+        console.log('refreshing>>');
+      }else{
+        setCareGiver(null);
+        console.log('Caregiver removed, resetting state.');
+      }
+    };
+
+    fetchCaregiverData();
+  }, [caregiver, caregivers]);
+
   const [{ isOver }, drop] = useDrop({
     accept: "CAREGIVER",
     drop: (item) => assignCaregiver(patientId, item, time),
@@ -55,7 +77,7 @@ const DropZone = ({ patientId, caregiver, assignCaregiver , time, removeCaregive
       ref={drop}
       className={`p-2 min-h-[100px] ${isOver ? "bg-green-200" : "bg-white"}`}
     >
-      {caregiver ? <CaregiverCard caregiver={caregiver}  removeCaregiver={removeCaregiver}  patientId={patientId} time={time}/> : <div className="caregiver-card-drop"> </div>}
+      {careGiver ? <CaregiverCard caregiver={careGiver}  removeCaregiver={removeCaregiver}  patientId={patientId} time={time}/> : <div className="caregiver-card-drop"> </div>}
     </div>
   );
 };
