@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
 import Modal from "../components/Modal";
-import { createDocument, getDocuments, updateDocument } from "../services/api";
+import { createDocument, getDocuments, updateDocument, uploadImage } from "../services/api";
 
 import {
   Stepper,
@@ -28,6 +28,7 @@ const PatientForm = ({
   closeForm,
   isEdit,
 }) => {
+
   const token = localStorage.getItem('token');
 
   const [activeStep, setActiveStep] = useState(0);
@@ -35,6 +36,7 @@ const PatientForm = ({
   const [isModalOpen, setIsModalOpen] = useState(openForm);
 
   const [isUpdate, setIsUpdate] = useState(false);
+  const [fileUpload, setFileUpload] = useState();
 
   const [formData, setFormData] = useState({
     firstName: "john",
@@ -48,7 +50,7 @@ const PatientForm = ({
     insuranceDetails: { provider: "jason", policyNumber: "jl112" },
     admissionDate: "20-10-2025",
     dischargeDate: "25-10-2025",
-    shifts:{}
+    shifts:{},
   });
 
   useEffect(() => {
@@ -98,7 +100,25 @@ const PatientForm = ({
 
   const handleSubmit = async () => {
     console.log("Submitted Data:", token);
+
+    let updatedFormData = {...formData};
+
+    if (fileUpload) {
+      const uploadedImageUrl = await uploadImage(fileUpload);
+      if (uploadedImageUrl.success) {
+        updatedFormData = {
+          ...updatedFormData,
+          image: uploadedImageUrl.imageUrl,
+        };
+      } else {
+        console.error("Image upload failed");
+      }
+    }
+
     const result = await createDocument("patients", formData, token);
+
+   
+
     if (result.success) {
       console.log("document created");
       closeModal();
@@ -115,11 +135,25 @@ const PatientForm = ({
   const handleUpdate = async (e) => {
     e.preventDefault();
 
-    const updatedData = {
+    let updatedData = {
       ...formData,
     };
+
+
+   
+    
+    if (fileUpload) {
+      const uploadedImageUrl = await uploadImage(fileUpload);
+      if (uploadedImageUrl.success) {
+        updatedData = {
+          ...updatedData,
+          image: uploadedImageUrl.imageUrl,
+        };
+      } else {
+        console.error("Image upload failed");
+      }
+    }
     console.log("Patient Data Updates:", updatedData);
-    // console.log("Caregiver Data Updates:", singleCaregiverData.id);
     try {
       await updateDocument("patients", updatedData.id, updatedData, token);
       console.log("Patient updated successfully");
@@ -135,6 +169,25 @@ const PatientForm = ({
     closeForm();
     console.log("trigger hoia");
   };
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    setFileUpload(file);
+  };
+
+  const patientImageUpload = async () =>{
+    if (fileUpload) {
+      const uploadedImageUrl = await uploadImage(fileUpload);
+      if (uploadedImageUrl.success) {
+        updatedCaregiverData = {
+          ...updatedCaregiverData,
+          image: uploadedImageUrl.imageUrl,
+        };
+      } else {
+        console.error("Image upload failed");
+      }
+    }
+  }
 
   return (
     <>
@@ -195,6 +248,17 @@ const PatientForm = ({
                     onChange={handleChange}
                     required
                   />
+                   <div>
+                    <h2>Upload Profile Picture</h2>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                    />
+                    {formData.profileImage && (
+                      <p>Image uploaded successfully!</p>
+                    )}
+                  </div>
                 </>
               )}
 

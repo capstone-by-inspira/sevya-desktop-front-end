@@ -8,13 +8,13 @@ import { convertToUTC, convertDateToFormat } from "../services/utils";
 
 const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   // console.log(shifts);
-  const [startDate, setStartDate] = useState("2025-03-06");
+  const [startDate, setStartDate] = useState("2025-03-08");
 
   const datesArray = ["2025-03-04", "2025-03-05", "2025-03-06"];
   const [timeSlots, setTimeSlots] = useState(["09:00", "14:00", "18:00"]);
   const [dates, setDates] = useState(datesArray);
 
-  const [selectedDate, setSelectedDate] = useState("2025-03-06");
+  const [selectedDate, setSelectedDate] = useState("2025-03-08");
 
   const token = localStorage.getItem("token");
   const [patientsData, setPatientsData] = useState(patients);
@@ -391,7 +391,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
             onClick={addTimeSlot}
             className="sevya-button"
           >
-            Create Shift
+            Create Shift Slot
           </button>
         </div>
 

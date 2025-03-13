@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { signup, updateDocument } from "../services/api";
+import { signup, updateDocument, uploadImage } from "../services/api";
 import Modal from "../components/Modal";
 import {
   Stepper,
@@ -19,18 +19,19 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import ImageUploader from "./FileUploader";
 
 const steps = ["Personal Info", "Availability", "Documents", "Review & Submit"];
 
-const API_URL = "http://localhost:8800/api";
+const API_URL = "http://192.168.1.212:8800/api";
 const CaregiverForm = ({
   singleCaregiverData,
   refreshData,
   openForm,
   closeForm,
-  isEdit
+  isEdit,
 }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   const [activeStep, setActiveStep] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +39,7 @@ const CaregiverForm = ({
   const [isModalOpen, setIsModalOpen] = useState(openForm);
 
   const [isUpdate, setIsUpdate] = useState(false);
+  const [fileUpload, setFileUpload] = useState();
   const [caregiverData, setCaregiverData] = useState({
     firstName: "",
     lastName: "",
@@ -97,7 +99,23 @@ const CaregiverForm = ({
     e.preventDefault();
     console.log("Caregiver Data Submitted:", caregiverData);
     try {
-      await signup(caregiverData);
+      let updatedCaregiverData = { ...caregiverData };
+
+      // If there's a new image uploaded, upload it and update caregiver data
+      if (fileUpload) {
+        const uploadedImageUrl = await uploadImage(fileUpload);
+        if (uploadedImageUrl.success) {
+          updatedCaregiverData = {
+            ...updatedCaregiverData,
+            image: uploadedImageUrl.imageUrl,
+          };
+        } else {
+          console.error("Image upload failed");
+        }
+      }
+
+      // Create caregiver (with or without image)
+      await signup(updatedCaregiverData);
       console.log("Caregiver account created successfully");
       closeModal();
       refreshData();
@@ -108,27 +126,86 @@ const CaregiverForm = ({
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    
-    const updatedData = {
-      ...caregiverData,
-    }
-    console.log("Caregiver Data Updates:", updatedData);
-    // console.log("Caregiver Data Updates:", singleCaregiverData.id);
+    console.log("Caregiver Data Updates:", caregiverData);
     try {
-      await updateDocument('caregivers', updatedData.id , updatedData, token);
+      let updatedCaregiverData = { ...caregiverData };
+
+      // If there's a new image uploaded, upload it and update caregiver data
+      if (fileUpload) {
+        const uploadedImageUrl = await uploadImage(fileUpload);
+        if (uploadedImageUrl.success) {
+          updatedCaregiverData = {
+            ...updatedCaregiverData,
+            image: uploadedImageUrl.imageUrl,
+          };
+        } else {
+          console.error("Image upload failed");
+        }
+      }
+
+      // Update caregiver (with or without image)
+      await updateDocument("caregivers", updatedCaregiverData.id, updatedCaregiverData, token);
       console.log("Caregiver updated successfully");
       closeModal();
       refreshData();
     } catch (error) {
-      console.error("Signup Error:", error);
+      console.error("Update Error:", error);
     }
   };
+
+
 
   const closeModal = () => {
     setIsModalOpen(null);
     closeForm();
     console.log("trigger hoia");
   };
+
+  // file upload >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    setFileUpload(file);
+  };
+
+  // const uploadFile = async () => {
+  //   try {
+  //     if (isUpdate) {
+  //       const uploadedImageUrl = await uploadImage(
+  //         file,
+  //         "caregivers",
+  //         singleCaregiverData.id,
+  //         singleCaregiverData,
+  //         token
+  //       );
+  //       setCaregiverData((prev) => ({
+  //         ...prev,
+  //         profileImage: uploadedImageUrl,
+  //       }));
+  //       refreshData();
+  //       console.log("Image uploaded successfully");
+  //     } else {
+  //       const uploadedImageUrl = await uploadImage(
+  //         file,
+  //         "caregivers",
+  //         "",
+  //         caregiverData,
+  //         token
+  //       );
+  //       setCaregiverData((prev) => ({
+  //         ...prev,
+  //         profileImage: uploadedImageUrl,
+  //       }));
+  //       refreshData();
+  //       console.log("Image uploaded successfully");
+  //     }
+  //   } catch (error) {
+  //     console.error("Image upload error:", error);
+  //     alert("Error uploading image");
+  //   }
+  // };
+
+  // file upload >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   return (
     <>
@@ -168,33 +245,47 @@ const CaregiverForm = ({
                     margin="normal"
                     onChange={handleChange}
                   />
-                {!isUpdate ? <TextField
-                    label="Email"
-                    name="email"
-                    value={caregiverData.email}
-                    fullWidth
-                    margin="normal"
-                    onChange={handleChange}
-                  /> : "" }
-             {!isUpdate ?  <TextField
-                    label="Password"
-                    name="password"
-                    value={caregiverData.password}
-                    type={showPassword ? "text" : "password"}
-                    fullWidth
-                    margin="normal"
-                    onChange={handleChange}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton onClick={handlePasswordToggle} edge="end">
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  : ""}
+                  {!isUpdate ? (
+                    <TextField
+                      label="Email"
+                      name="email"
+                      value={caregiverData.email}
+                      fullWidth
+                      margin="normal"
+                      onChange={handleChange}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {!isUpdate ? (
+                    <TextField
+                      label="Password"
+                      name="password"
+                      value={caregiverData.password}
+                      type={showPassword ? "text" : "password"}
+                      fullWidth
+                      margin="normal"
+                      onChange={handleChange}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              onClick={handlePasswordToggle}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  ) : (
+                    ""
+                  )}
 
                   <TextField
                     label="Phone Number"
@@ -238,21 +329,34 @@ const CaregiverForm = ({
               )}
 
               {activeStep === 2 && (
-                <div>
-                  <TextField
-                    label="Document URLs (comma-separated)"
-                    name="documents"
-                    value={caregiverData.documents}
-                    fullWidth
-                    margin="normal"
-                    onChange={(e) =>
-                      setCaregiverData({
-                        ...caregiverData,
-                        documents: e.target.value.split(","),
-                      })
-                    }
-                  />
-                </div>
+                <>
+                  <div>
+                    <TextField
+                      label="Document URLs (comma-separated)"
+                      name="documents"
+                      value={caregiverData.documents}
+                      fullWidth
+                      margin="normal"
+                      onChange={(e) =>
+                        setCaregiverData({
+                          ...caregiverData,
+                          documents: e.target.value.split(","),
+                        })
+                      }
+                    />
+                  </div>
+                  <div>
+                    <h2>Upload Profile Picture</h2>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                    />
+                    {caregiverData.profileImage && (
+                      <p>Image uploaded successfully!</p>
+                    )}
+                  </div>
+                </>
               )}
 
               {activeStep === 3 && (
@@ -288,24 +392,24 @@ const CaregiverForm = ({
                 Back
               </Button>
               {activeStep === steps.length - 1 ? (
-               (!isUpdate ? <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}
-              >
-                Submit
-              </Button> :
-              <Button
-              variant="contained"
-              color="primary"
-              onClick={handleUpdate}
-            >
-              Update
-            </Button>) 
-               
+                !isUpdate ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleUpdate}
+                  >
+                    Update
+                  </Button>
+                )
               ) : (
- 
-                
                 <Button
                   variant="contained"
                   color="primary"
@@ -313,7 +417,6 @@ const CaregiverForm = ({
                 >
                   Next
                 </Button>
-               
               )}
             </div>
           </div>

@@ -77,7 +77,7 @@ const DropZone =  ({ patientId, caregiver, assignCaregiver , time, removeCaregiv
       ref={drop}
       className={`p-2 min-h-[100px] ${isOver ? "bg-green-200" : "bg-white"}`}
     >
-      {careGiver ? <CaregiverCard caregiver={careGiver}  removeCaregiver={removeCaregiver}  patientId={patientId} time={time}/> : <div className="caregiver-card-drop"> </div>}
+      {careGiver ? <CaregiverCard caregiver={careGiver}  removeCaregiver={removeCaregiver}  patientId={patientId} time={time}/> : <div className="caregiver-card-drop"> Drop the caregiver </div>}
     </div>
   );
 };
