@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import PatientForm from './PatientForm';
+import Avatar from "@mui/material/Avatar";
+import { Box } from "@mui/material";
 const PatientList = ({patients, refreshData, closeForm, openForm}) => {
     const token = localStorage.getItem("token");
     const [singlePatientData, setSinglePatientData] = useState();
@@ -57,9 +59,20 @@ const PatientList = ({patients, refreshData, closeForm, openForm}) => {
             aria-controls={`panel-${patient.id}-content`}
             id={`panel-${patient.id}-header`}
           >
-            <Typography component="span">
-              {patient.firstName} {patient.lastName}
-            </Typography>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                <Avatar
+                  src={patient?.image || ""}
+                  alt={`${patient.firstName} ${patient.lastName}`}
+                  sx={{ width: 40, height: 40, bgcolor: "#1976d2" }}
+                >
+                  {!patient.profileImage &&
+                    `${patient.firstName?.[0] || ""}${patient.lastName?.[0] || ""}`}
+                </Avatar>
+                <Typography component="span">
+                  {patient.firstName} {patient.lastName}
+                </Typography>
+              </Box>
+         
           </AccordionSummary>
           <AccordionDetails>
             <Typography>Email: {patient.email}</Typography>
