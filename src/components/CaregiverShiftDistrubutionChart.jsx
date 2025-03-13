@@ -24,6 +24,7 @@ const CaregiverShiftPieChart = () => {
 
   return (
     <div className="w-full flex justify-center">
+      <h3>Shifts per caregiver</h3>
       <Chart options={chartOptions} series={series} type="donut" width="400" />
     </div>
   );

@@ -12,6 +12,10 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
 import CaregiverForm from "./CaregiverForm";
+import Avatar from "@mui/material/Avatar";
+import { Box } from "@mui/material";
+
+
 const CaregiverList = ({ caregivers, refreshData, closeForm, openForm }) => {
   const token = localStorage.getItem("token");
   const [singleCaregiverData, setSingleCaregiverData] = useState();
@@ -55,9 +59,20 @@ const CaregiverList = ({ caregivers, refreshData, closeForm, openForm }) => {
               aria-controls={`panel-${caregiver.id}-content`}
               id={`panel-${caregiver.id}-header`}
             >
-              <Typography component="span">
-                {caregiver.firstName} {caregiver.lastName}
-              </Typography>
+               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                <Avatar
+                  src={caregiver?.image || ""}
+                  alt={`${caregiver.firstName} ${caregiver.lastName}`}
+                  sx={{ width: 40, height: 40, bgcolor: "#1976d2" }}
+                >
+                  {!caregiver.profileImage &&
+                    `${caregiver.firstName?.[0] || ""}${caregiver.lastName?.[0] || ""}`}
+                </Avatar>
+                <Typography component="span">
+                  {caregiver.firstName} {caregiver.lastName}
+                </Typography>
+              </Box>
+            
             </AccordionSummary>
             <AccordionDetails>
               <Typography>Email: {caregiver.email}</Typography>

@@ -2,7 +2,7 @@ import axios from "axios";
 import { auth, provider } from "./firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import Caregiver from "../pages/Caregiver";
-const API_URL = "http://localhost:8800/api";
+const API_URL = "http://192.168.1.212:8800/api";
 
 
 
@@ -105,3 +105,42 @@ export const updateDocument = (collection, id, data, token) =>
 // Delete a document by ID
 export const deleteDocument = (collection, id, token) =>
   apiRequest("DELETE", `${collection}/${id}`, {}, token);
+
+
+
+export const uploadImage = async (file) => {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  try {
+    const response = await fetch(`${API_URL}/auth/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const upload_image = await response.json();
+    if (!response.ok) {
+      throw new Error(upload_image.error || "Upload failed!");
+    }
+
+    const imageUrl = upload_image.imageUrl;
+  //  const newData = { ...data, imageUrl }
+
+    // let dbResponse;
+
+    // if (id) {
+    //   // Step 2A: Update an existing document with the new image URL
+    //   dbResponse = await updateDocument(collection, id, newData, token);
+    // } else {
+    //   // Step 2B: Create a new document with the image URL
+    //   dbResponse = await createDocument(collection, newData, token);
+    // }
+    return { success: true, imageUrl:imageUrl };
+
+
+  //  return { success: true, imageUrl, docId: dbResponse.data.id || docId };
+  } catch (error) {
+    console.error("Upload error:", error);
+    throw error;
+  }
+};
