@@ -16,6 +16,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     if (token) {
+     
       fetchPatients();
       fetchCaregivers();
       fetchShifts();
@@ -34,8 +35,12 @@ export const HomePage = () => {
   };
 
   const fetchPatients = async () => {
+
     const result = await getDocuments("patients", token);
+    console.log( result, 'ckjdsabkjbcasca')
+
     if (result.success) {
+
       setPatients(result.data);
     } else {
       console.error(result.error);
