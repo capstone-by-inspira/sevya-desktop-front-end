@@ -35,6 +35,7 @@ const App = () => {
       //  <Navbar />
          
 <>
+
         <RefreshHandler setIsAuthenticated={setIsAuthenticated} />
 
         <Routes>

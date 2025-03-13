@@ -19,7 +19,6 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import ImageUploader from "./FileUploader";
 
 const steps = ["Personal Info", "Availability", "Documents", "Review & Submit"];
 
