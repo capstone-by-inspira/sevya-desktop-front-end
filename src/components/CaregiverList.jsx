@@ -51,7 +51,7 @@ const CaregiverList = ({ caregivers, refreshData, closeForm, openForm }) => {
         isEdit={isEdit}
         closeForm={closeModal}
       />
-      <div>
+      <div className="caregiver-list-wrapper">
         {caregivers.map((caregiver) => (
           <Accordion key={caregiver.id}>
             <AccordionSummary

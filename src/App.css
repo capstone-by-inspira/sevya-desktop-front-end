@@ -32,9 +32,10 @@
     background-color: #e8daff;
   } */
 
-  /* LOGIN PAGE */
+/* LOGIN PAGE */
 
-.login-page, .signup-page{
+.login-page,
+.signup-page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,32 +43,31 @@
   flex-direction: column;
   gap: 3rem;
 }
-.login-form, .signup-form{
+.login-form,
+.signup-form {
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   gap: 1rem;
 }
-.login-form-data, .signup-form-data{
+.login-form-data,
+.signup-form-data {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
 
-  input{
+  input {
     width: 250px;
     padding: 1rem;
     border-radius: 10px;
     border: 1px solid black;
   }
-
- 
-
 }
-.logo-slogan{
+.logo-slogan {
   font-weight: 300;
-  color:var(--primary-black);
+  color: var(--primary-black);
 }
 .password-input-wrapper {
   width: 100%;
@@ -87,27 +87,115 @@
   cursor: pointer;
   color: #666;
 }
-.sevya-form-fields{
+.sevya-form-fields {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 
-  /* LOGIN PAGE */
+/* LOGIN PAGE */
 
+/* dashboard */
+.dashboard-page {
+  background-color: var(--background-blue);
+  padding: 6rem 1rem 0rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+.dashboard-header {
+  width: 100%;
+  img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+}
+.dashboard-body{
+  width: 100%;
 
-  /* dashboard */
+}
 
-.dashboard-first-container{
+.dashboard-cards {
+  background-color: var(--primary-white);
+  border: 1px solid var(--primary-gray);
+  border-radius: 10px;
+  padding: 1rem;
+}
+.dashboard-card-caregiver {
+  background-color: var(--primary-white);
+  border: 1px solid var(--primary-gray);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .dashboard-card-left-content {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+  }
+}
+
+  ul{
+    padding: 0;
+
+  }
+
+.list-content{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+.dashboard-footer{
+  width: 100%;
+
+  display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+}
+.dashboard-first-container {
   display: flex;
   flex-flow: row wrap;
   gap: 2rem;
   padding: 2rem;
   justify-content: space-evenly;
+}
+.dashboard-emergency-container{
+  box-sizing: border-box;
+  background-color: var(--primary-medium-blue);
+  padding: 2rem 4rem;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .dashboard-emergency-header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 10px;
+    color: var(--primary-white) !important;
+  }
 
 }
-  .dashboard-patient-card, .dashboard-caregiver-card{
+.emergency-list{
+  width: 100%;
+  background-color: var(--primary-white);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+
+}
+/* .dashboard-patient-card, .dashboard-caregiver-card{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,77 +205,80 @@
     border-radius: 10px;
     border:1px solid black;
 
-  }
+  } */
+.caregiver-availability-chart {
+  background-color: var(--primary-white);
+  padding: 1rem;
+  border: 1px solid var(--primary-gray);
+  border-radius: 10px;
+}
+.dashboard-left-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
 
-  .dashboard-left-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-  }
-
-.caregiver-availability-chart-heading{
+.caregiver-availability-chart-heading {
   font-weight: 400;
 }
-  /* dashboard */
+/* dashboard */
 
-.modal-form{
+.modal-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.modal-form-body{
-height:350px;
-overflow-y: auto ;
+.modal-form-body {
+  height: 350px;
+  overflow-y: auto;
 }
 
-.patient-card{
-  border:1px solid black;
+.patient-card {
+  border: 1px solid black;
   border-radius: 10px;
   width: 100px;
   margin: 10px;
   padding: 10px;
 }
-.caregiver-card{
-  border:1px solid black;
+.caregiver-card {
+  border: 1px solid black;
   background-color: white;
   width: 100px;
   margin: 10px;
   padding: 10px;
   cursor: move;
   border-radius: 10px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  
-  i{
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+  i {
     display: none;
   }
 }
-.shift-board{
+.shift-board {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-top: 4rem;
-
 }
-.patient-careigver-table{
+.patient-careigver-table {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 1rem;
   margin-top: 10px;
-
 }
-.patient-careigver-table-header{
-text-align: center;
+.patient-careigver-table-header {
+  text-align: center;
 }
 
-.patient-careigver-table-body{
+.patient-careigver-table-body {
   display: flex;
-justify-content: space-between;
-
+  justify-content: space-between;
 }
-.caregiver-drag-cards-container{
+.caregiver-drag-cards-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -197,67 +288,67 @@ justify-content: space-between;
   background-color: lightgray;
 }
 
-.table-selectors{
+.table-selectors {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   align-items: center;
-justify-content: center;
+  justify-content: center;
   padding: 5rem;
-  input{
+  input {
     width: 150px;
     padding: 5px 10px;
     border-radius: 10px;
     border: 1px solid black;
-
   }
-  button{
+  button {
     width: 200px;
   }
 }
-.patients-table{
+.patients-table {
   border-radius: 20px;
   padding: 10px;
   border: 1px solid black;
   text-align: center;
-  td{
+  td {
     padding: 10px;
   }
 
-  .caregiver-card{
+  .caregiver-card {
     display: flex;
     justify-content: space-between;
     width: 200px;
     text-align: left;
     background-color: lightgray;
   }
-  i{
+  i {
     display: block;
   }
 }
 
-.caregiver-card-drop{
-  border:1px solid black;
+.caregiver-card-drop {
+  border: 1px solid black;
   background-color: white;
   width: 200px;
   margin: 10px;
   padding: 10px;
   height: 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px inset;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px inset;
 
   border-radius: 10px;
 }
 
-
-
 /* caregiver page */
-.caregiver-page{
+.caregiver-list-wrapper, .patient-list-wrapper{
+  padding: 1rem 2rem;
+}
+.caregiver-page {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
 }
-.caregiver-page-header{
+.caregiver-page-header {
   display: flex;
   justify-content: space-between;
   flex-flow: row;
@@ -266,15 +357,13 @@ justify-content: center;
 
 /* caregiver page */
 
-
 /* patients page */
-.patients-page{
+.patients-page {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
 }
-.patients-page-header{
+.patients-page-header {
   display: flex;
   justify-content: space-between;
   flex-flow: row;

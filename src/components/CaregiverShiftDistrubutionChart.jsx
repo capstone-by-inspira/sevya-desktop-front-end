@@ -1,33 +1,69 @@
+
+
 import React from "react";
-import Chart from "react-apexcharts";
+import { PieChart } from "@mui/x-charts/PieChart";
+import { Paper, Typography } from "@mui/material";
 
-const CaregiverShiftPieChart = () => {
-  const caregiverShifts = [
-    { name: "Alice", shifts: 12 },
-    { name: "Bob", shifts: 8 },
-    { name: "Charlie", shifts: 15 },
-    { name: "David", shifts: 10 },
-  ];
+const data = [
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#25578e'},
+  { name: "Group D", value: 200 , color:'#0fbfae'},
+  { name: "Group D", value: 200 , color:'#0fbfae'},
+  { name: "Group D", value: 200 , color:'#0fbfae'},
+  { name: "Group D", value: 200 , color:'#0fbfae'},
+  { name: "Group D", value: 200 , color:'#0fbfae'},
+  { name: "Group D", value: 200 , color:'#0fbfae'},
+  { name: "Group D", value: 200 , color:'#0fbfae'},
+  { name: "Group D", value: 200 , color:'#0fbfae'},
+  { name: "Group D", value: 200 , color:'#0fbfae'},
+  { name: "Group D", value: 200 , color:'#0fbfae'},
 
-  const chartOptions = {
-    chart: {
-      type: "donut",
-    },
-    labels: caregiverShifts.map((c) => c.name),
-    colors: ["#FF6384", "#36A2EB", "#FFCE56", "#4CAF50"],
-    legend: {
-      position: "bottom",
-    },
-  };
 
-  const series = caregiverShifts.map((c) => c.shifts);
+ 
+];
 
+const PieChartComponent = () => {
   return (
-    <div className="w-full flex justify-center">
-      <h3>Shifts per caregiver</h3>
-      <Chart options={chartOptions} series={series} type="donut" width="400" />
+    <div
+     className="dashboard-cards"
+    >
+      <Typography variant="h6" gutterBottom>
+        Example Pie Chart
+      </Typography>
+
+      <PieChart
+        series={[
+          {
+            data: data,
+            innerRadius: 30,
+            outerRadius: 100,
+            paddingAngle: 5,
+            cornerRadius: 2,
+            startAngle: -0,
+            endAngle: 360,
+            cx: 150,
+            cy: 150,
+          },
+        ]}
+        width={300}
+        height={300}
+      />
     </div>
   );
 };
 
-export default CaregiverShiftPieChart;
+export default PieChartComponent;

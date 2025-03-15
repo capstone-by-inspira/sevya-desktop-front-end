@@ -1,66 +1,85 @@
-import React from "react";
-import { useState, useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
 import CaregiverCard from "./CaregiverCard";
-import { getDocumentById } from "../services/api";
 
-const ShiftTable = ({ patientsData, dates, assignCaregiver , timeSlots, removeCaregiver , caregivers}) => {
+const ShiftTable = ({ patientsData, dates, assignCaregiver, timeSlots, removeCaregiver, caregivers }) => {
+  const [searchQuery, setSearchQuery] = useState("");  // State for search query
+  const [filteredPatients, setFilteredPatients] = useState(patientsData);
+
+  // Filter patients based on the search query
+  useEffect(() => {
+    const filtered = patientsData.filter((patient) =>
+      patient.firstName.toLowerCase().includes(searchQuery.toLowerCase()) // Case-insensitive search
+    );
+    setFilteredPatients(filtered);
+  }, [searchQuery, patientsData]);
+
+  // Check if there are time slots
+  const hasTimeSlots = timeSlots && timeSlots.length > 0;
+
   return (
-    <table className="patients-table">
-      <thead>
-        <tr>
-          <th className="border p-2">Patient</th>
-          {timeSlots.map((time) => (
-            <th key={time} className="border p-2">{time}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {patientsData.map((patient) => (
-          <tr key={patient.id}>
-           
-            <td className="border p-2">{patient.firstName}</td>
-            {timeSlots.map((time) => (
-              <td key={time} className="border p-2">
-                 {/* {console.log(patient.shifts["2025-03-06"])}
-                 {console.log(date)} */}
-
-                <DropZone
-                  patientId={patient.id}
-                //  date={date}
-                  time={time}
-                  caregiver={patient.shifts[time]}
-                  assignCaregiver={assignCaregiver}
-                  removeCaregiver={removeCaregiver}
-                  caregivers={caregivers}
-                />
-              </td>
+    <div>
+      {/* Input field for searching patients */}
+      <input
+        type="text"
+        placeholder="Search for patient by name"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        style={{ padding: '8px', marginBottom: '10px', width: '100%' }}
+      />
+      
+      {/* If no time slots, show placeholder */}
+      {!hasTimeSlots ? (
+        <div style={{ textAlign: 'center', margin: '20px 0' }}>
+          <p>Please add time slots to assign caregivers.</p>
+        </div>
+      ) : (
+        <table className="patients-table">
+          <thead>
+            <tr>
+              <th className="border p-2">Patient</th>
+              {timeSlots.map((time) => (
+                <th key={time} className="border p-2">{time}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {filteredPatients.map((patient) => (
+              <tr key={patient.id}>
+                <td className="border p-2">{patient.firstName}</td>
+                {timeSlots.map((time) => (
+                  <td key={time} className="border p-2">
+                    <DropZone
+                      patientId={patient.id}
+                      time={time}
+                      caregiver={patient.shifts[time]}
+                      assignCaregiver={assignCaregiver}
+                      removeCaregiver={removeCaregiver}
+                      caregivers={caregivers}
+                    />
+                  </td>
+                ))}
+              </tr>
             ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 };
 
-
-const DropZone =  ({ patientId, caregiver, assignCaregiver , time, removeCaregiver, caregivers}) => {
- // console.log(caregiver?.id, 'dropzone');
+const DropZone = ({ patientId, caregiver, assignCaregiver, time, removeCaregiver, caregivers }) => {
   const [careGiver, setCareGiver] = useState(caregiver);
-  useEffect(() => {
 
+  useEffect(() => {
     const fetchCaregiverData = async () => {
       if (caregiver?.id) {
         const cr = caregivers.find((c) => c.id == caregiver.id); // Use find instead of filter to get a single object
         setCareGiver(cr);
-        console.log('refreshing>>');
-      }else{
+      } else {
         setCareGiver(null);
-        console.log('Caregiver removed, resetting state.');
       }
     };
-
     fetchCaregiverData();
   }, [caregiver, caregivers]);
 
@@ -77,10 +96,13 @@ const DropZone =  ({ patientId, caregiver, assignCaregiver , time, removeCaregiv
       ref={drop}
       className={`p-2 min-h-[100px] ${isOver ? "bg-green-200" : "bg-white"}`}
     >
-      {careGiver ? <CaregiverCard caregiver={careGiver}  removeCaregiver={removeCaregiver}  patientId={patientId} time={time}/> : <div className="caregiver-card-drop"> Drop the caregiver </div>}
+      {careGiver ? (
+        <CaregiverCard caregiver={careGiver} removeCaregiver={removeCaregiver} patientId={patientId} time={time} />
+      ) : (
+        <div className="caregiver-card-drop">Drop the caregiver</div>
+      )}
     </div>
   );
 };
-
 
 export default ShiftTable;

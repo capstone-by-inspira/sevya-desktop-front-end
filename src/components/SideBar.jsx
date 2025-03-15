@@ -2,16 +2,24 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 // import { logoutUser } from "../../api/loginApi";
 // import logo from "/src/resources/assets/Logo/icon-logo.png";
-// import togatherLogo from '../resources/assets/Logo/togather-logo.png'
+import logo from '../assets/logo.png'
 import "../App.css";
 const SideBar = ({ activeItem, setActiveItem, user }) => {
   const navigate = useNavigate();
 
   return (
     <div className="sidebar-main">
-      {/* <div className="sidebar-header"></div> */}
+      {/* <div className="sidebar-header">
+        
+      </div> */}
       <div className="sidebar-body">
-        <h3>SEVYA</h3>
+        <div className="sidebar-header-wrapper">
+          <div className="logo-image"><img src={logo}/></div>
+          <div className="logo-slogan">
+            <p>SEVYA</p>
+            <p>To serve and care</p>
+          </div>
+        </div>
         <aside className="sidebar-inside-container">
           <nav>
             <a
@@ -53,7 +61,6 @@ const SideBar = ({ activeItem, setActiveItem, user }) => {
         </aside>
       </div>
 
-      <div className="sidebar-footer">ADMIN ~ {user.name}</div>
     </div>
   );
 };

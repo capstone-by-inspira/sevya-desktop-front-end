@@ -8,13 +8,12 @@ import { convertToUTC, convertDateToFormat } from "../services/utils";
 
 const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   // console.log(shifts);
-  const [startDate, setStartDate] = useState("2025-03-08");
 
   const datesArray = ["2025-03-04", "2025-03-05", "2025-03-06"];
   const [timeSlots, setTimeSlots] = useState(["09:00", "14:00", "18:00"]);
   const [dates, setDates] = useState(datesArray);
 
-  const [selectedDate, setSelectedDate] = useState("2025-03-08");
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
 
   const token = localStorage.getItem("token");
   const [patientsData, setPatientsData] = useState(patients);
@@ -22,28 +21,11 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   const [startTime, setStartTime] = useState([]);
   const [endTime, setEndTime] = useState([]);
 
-  // useEffect(() => {
-  //   fetchShiftTimes();
-  // }, []);
+ 
 
   useEffect(() => {
     fetchShiftTimes(selectedDate); // Pass selectedDate to filter shifts on load
   }, [selectedDate]);
-
-  // const fetchShiftTimes = async () => {
-  //   const fetchedTimes = patients.map((patient) => patient.shifts);
-
-  //   // Flatten all the time slots from all patients
-  //   const allTimeSlots = fetchedTimes.flatMap((shift) => Object.keys(shift));
-
-  //   // Get unique time slots using Set
-  //   const uniqueTimeSlots = [...new Set(allTimeSlots)];
-
-  //   console.log(uniqueTimeSlots, "Unique Time Slots");
-
-  //   // Set the unique time slots to state
-  //   setTimeSlots(uniqueTimeSlots);
-  // };
 
   const fetchShiftTimes = async (date) => {
     setStartTime("");
@@ -93,8 +75,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   };
 
   const assignCaregiver = (patientId, caregiver, time) => {
-    // console.log(selectedDate, 'stdate');
-    // console.log(time, 'time');
+   
     setPatientsData((prevPatients) =>
       prevPatients.map((p) => {
         if (p.id === patientId) {
@@ -250,37 +231,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     }
   };
 
-  // const updateShiftInShift = async (patientId, caregiver, time) => {
-  //   const [startTime, endTime] = time.split(" - ");
-
-  //   const utcStart = convertToUTC(selectedDate, startTime);
-  //   const utcEnd = convertToUTC(selectedDate, endTime);
-
-  //   const data = {
-  //     checkIn: "",
-  //     checkOut: "",
-  //     caregiverId: caregiver.id,
-  //     patientId: patientId,
-  //     startTime: utcStart,
-  //     endTime: utcEnd,
-  //     location: "Surrey, BC",
-  //     shiftDate: selectedDate,
-  //   };
-
-  //   const result = await createDocument("shifts", data, token);
-  //   if (result.success) {
-  //     console.log("shift created");
-  //     refreshData();
-  //   } else {
-  //     console.error(result.error);
-  //   }
-
-  //   // console.log("UTC Start Time:", utcStart);
-  //   // console.log("UTC End Time:", utcEnd);
-
-  //   // console.log(selectedDate, 'date coming');
-  // };
-
+  
   const updateShiftInShift = async (patientId, caregiver, time) => {
 
     console.log(patientId, 'patientID >>>>>>>>>>>>>>');

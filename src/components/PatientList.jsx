@@ -51,7 +51,7 @@ const PatientList = ({patients, refreshData, closeForm, openForm}) => {
        closeForm={closeModal}
 
        />
-       <div>
+       <div className='patient-list-wrapper'>
       {patients.map((patient) => (
         <Accordion key={patient.id}>
           <AccordionSummary

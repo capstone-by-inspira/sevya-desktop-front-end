@@ -1,5 +1,6 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
+import { Paper, Typography } from "@mui/material";
 
 const CaregiverAvailabilityChart = () => {
   const caregiverAvailabilityData = [
@@ -8,6 +9,14 @@ const CaregiverAvailabilityChart = () => {
     { date: "2025-03-03", available: 10 },
     { date: "2025-03-04", available: 5 },
     { date: "2025-03-05", available: 12 },
+    { date: "2025-03-05", available: 12 },
+    { date: "2025-03-05", available: 12 },
+    { date: "2025-03-05", available: 13 },
+    { date: "2025-03-05", available: 3 },
+    { date: "2025-03-05", available: 2 },
+    { date: "2025-03-05", available: 12 },
+    { date: "2025-03-05", available: 2 },
+
   ];
 
   // Extracting data for ApexCharts
@@ -27,10 +36,10 @@ const CaregiverAvailabilityChart = () => {
     yaxis: {
       title: { text: "Available Caregivers" },
     },
-    colors: ["#4F46E5"], // Custom color for bars
+    colors: ["#0fbfae"], // Custom color for bars
     plotOptions: {
       bar: {
-        columnWidth: "45%",
+        columnWidth: "25%",
         distributed: true,
       },
     },
@@ -41,8 +50,11 @@ const CaregiverAvailabilityChart = () => {
   };
 
   return (
-    <div className="caregiver-availability-chart">
-      <h3 className="caregiver-availability-chart-heading font-400">Caregiver Availability Over Time</h3>
+    <div className="dashboard-cards">
+       <Typography variant="h6" gutterBottom>
+        Caregiver Availability chart
+      </Typography>
+
       <ReactApexChart options={options} series={[{ name: "Available", data: seriesData }]} type="bar" height={350} />
     </div>
   );
