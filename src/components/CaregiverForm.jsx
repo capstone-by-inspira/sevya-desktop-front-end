@@ -23,7 +23,7 @@ import ImageUploader from "./FileUploader";
 
 const steps = ["Personal Info", "Availability", "Documents", "Review & Submit"];
 
-const API_URL = "http://localhost:8800/api";
+const API_URL = "http://10.128.229.103:8800/api";
 const CaregiverForm = ({
   singleCaregiverData,
   refreshData,

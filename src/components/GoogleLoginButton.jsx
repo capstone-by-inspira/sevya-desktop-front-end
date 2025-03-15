@@ -13,7 +13,7 @@ const GoogleLoginButton = ({ setUser }) => {
       const idToken = await result.user.getIdToken();
       console.log(idToken);
       const response = await axios.post(
-        "http://localhost/api/auth/firebase/google",
+        "http://10.128.229.103:8800/api/auth/firebase/google",
         {
           idToken,
         }

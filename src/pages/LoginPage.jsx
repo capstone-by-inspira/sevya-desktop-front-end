@@ -7,7 +7,7 @@ import { Eye, EyeOff } from "lucide-react"; // Import eye icons
 import sevya_main from "../assets/sevya-main.png";
 import google_login_button from "../assets/google-button.png";
 
-const API_URL = "http://localhost:8800/api";
+const API_URL = "http://10.128.229.103:8800/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
