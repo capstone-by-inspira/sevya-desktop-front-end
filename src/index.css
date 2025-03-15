@@ -2,6 +2,7 @@
   --primary-white: #ffffff;
   --primary-blue: #001d3d;
   --primary-green: #04ed98;
+  --primary-dark: #25578e;
   --accent-pink: #f500e5;
   --accent-yellow: #ffb700;
   --accent-blue: #60efff;
@@ -9,6 +10,8 @@
   --secondary-gray: #eeeeee;
   --secondary-purple: #f7f2ff;
   --primary-black: #4e4e4e;
+  --border-dark: #999999;
+  --text-grey: #6a6e73;
 }
 @media only screen and (max-width: 700px) {
   #root {
@@ -67,6 +70,50 @@ body {
     gap: 50px;
   }
 }
+
+.sidebarlogo{
+  display: flex;
+  gap: 0.5rem;
+  color: var(--text-grey);
+}
+
+.sidebarlogo img{
+  width: 60px;
+  height: 60px;
+}
+
+.sidebarlogo h3{
+  font-family: Radley;
+  font-size: 24px;
+  margin: 0;
+  padding: 5px 0 0 0;
+}
+
+.sidebarlogo p{
+  font-family: Radley;
+  font-size: 16px;
+  margin: 0;
+}
+
+.sidebaricons{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 1.5rem;
+  align-items: center;
+  justify-items: right;
+}
+
+.sidebaricons a{
+  text-align: left;
+}
+
+.sidebar-inside-container .sidebarnav{
+  display: grid;
+  gap:1rem;
+  margin: 0;
+  padding: 0;
+}
+
 /* Define styles for active nav item */
 .nav-item {
   color: var(--primary-blue); /* Default color */
@@ -200,8 +247,8 @@ label {
   padding: 10px 30px;
   border-radius: 40px;
   border: 1px solid black;
-  background-color: var(--primary-white);
-  color: var(--primary-blue);
+  background-color: var(--primary-dark);
+  color: var(--primary-white);
   border-color: var(--primary-blue);
   width: 100%;
   text-transform: uppercase;

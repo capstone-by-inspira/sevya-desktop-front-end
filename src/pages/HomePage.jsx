@@ -3,6 +3,7 @@ import SideBar from "../components/SideBar";
 import MainContent from "../components/MainContent";
 import { getDocuments } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import '../index.css';
 
 export const HomePage = () => {
   const navigate = useNavigate();

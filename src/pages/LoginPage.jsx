@@ -4,7 +4,7 @@ import { auth, provider } from "../services/firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react"; // Import eye icons
-import sevya_main from "../assets/sevya-main.png";
+import logo from "../assets/logo.png";
 import google_login_button from "../assets/google-button.png";
 
 const API_URL = "http://localhost:8800/api";
@@ -56,8 +56,8 @@ const Login = () => {
     <div className="login-page">
       <h2 className="visually-hidden">Login</h2>
       <div className="login-form">
-        <img src={sevya_main} alt="Sevya Logo" />
-        <h3>Welcome to Sevya</h3>
+        <img src={logo} alt="Sevya Logo" />
+        <h3>Sevya</h3>
         <h5 className="logo-slogan">To serve and care</h5>
         <form onSubmit={handleLogin} className="login-form-data">
 

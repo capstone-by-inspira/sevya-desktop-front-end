@@ -32,6 +32,21 @@
     background-color: #e8daff;
   } */
 
+  :root {
+    --primary-white: #ffffff;
+    --primary-blue: #001d3d;
+    --primary-green: #04ed98;
+    --primary-dark: #25578e;
+    --accent-pink: #f500e5;
+    --accent-yellow: #ffb700;
+    --accent-blue: #60efff;
+    --primary-gray: #d9d9d9;
+    --secondary-gray: #eeeeee;
+    --secondary-purple: #f7f2ff;
+    --primary-black: #4e4e4e;
+    --border-dark: #999999;
+  }
+
   /* LOGIN PAGE */
 
 .login-page, .signup-page{
@@ -266,6 +281,19 @@ justify-content: center;
 
 /* caregiver page */
 
+/* caregiver list */
+
+.cargiverdetails,
+.patientdetails{
+  border-top: solid var(--border-dark) 1.5px;
+}
+
+.caregiverslist1{
+  display: grid;
+  gap: 0.5rem;
+}
+
+/* caregiver list */
 
 /* patients page */
 .patients-page{
@@ -281,3 +309,13 @@ justify-content: center;
   padding: 10px;
 }
 /* patients page */
+
+/* Main Header*/
+.main-header-root h1{
+  font-size: 20px;
+  font-family: Lato;
+  font-weight: bold;
+}
+
+
+/* Main Header*/

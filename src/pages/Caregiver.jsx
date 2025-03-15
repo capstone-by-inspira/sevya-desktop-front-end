@@ -1,9 +1,9 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
-
 import CaregiverForm from "../components/CaregiverForm";
 import CaregiverList from "../components/CaregiverList";
 import { getDocuments } from "../services/api";
+
 
 const Caregiver = ({ caregivers, refreshData }) => {
   const [isOpen, setIsOpen] = useState(null);
@@ -19,7 +19,7 @@ const Caregiver = ({ caregivers, refreshData }) => {
     <div className="caregiver-page">
       <div className="caregiver-page-header">
         <h3>CAREGIVERS</h3>
-        <button className="sevya-button-inverse"onClick={openForm}>Add Caregiver</button>
+        <button className="sevya-button-inverse" onClick={openForm}>Add Caregiver</button>
         
       </div>
       <CaregiverForm
