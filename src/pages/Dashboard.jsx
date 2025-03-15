@@ -13,8 +13,9 @@ import DashboardCardPatients from "../components/DashboardCardPatients";
 import EmergencyOccurrenceList from "../components/EmergencyOccurenceList";
 import InfoIcon from '@mui/icons-material/Info';
 import { InfoOutlined } from "@mui/icons-material";
-const Dashboard = ({ caregivers, patients, user }) => {
-  console.log(user);
+const Dashboard = ({ caregivers, patients, user , occ}) => {
+  console.log(occ, '>>>>>>>>>>');
+
 
   return (
     <>
@@ -73,10 +74,15 @@ const Dashboard = ({ caregivers, patients, user }) => {
 
         <div className="dashboard-emergency-container">
           <div className="dashboard-emergency-header">
-            <InfoOutlined></InfoOutlined>
-            <h5>Emergency Occurences</h5>
+            <div className="dashboard-emergency-left-container">
+              <InfoOutlined></InfoOutlined>
+              <h5>Emergency Occurences</h5>
+            </div>
+            <div className="dashboard-emergency-right-container">
+            <h5>Total Occurences: {occ.length}</h5>
+            </div>
           </div>
-          <EmergencyOccurrenceList occurrences={[]} />
+          <EmergencyOccurrenceList occurrences={occ} caregivers={caregivers} />
         </div>
 
         <PatientForm />

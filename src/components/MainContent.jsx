@@ -13,15 +13,15 @@ const MainContent = ({
   caregivers,
   shifts,
   refreshData,
-  user
-
+  user,
+  occurences
 }) => {
   const [showHeaderControls, setShowHeaderControls] = useState(false);
 
   const renderContent = () => {
     switch (activeItem) {
       case "home":
-        return <><Dashboard setActiveItem ={setActiveItem} caregivers ={caregivers} patients ={patients} user={user}/></>;
+        return <><Dashboard setActiveItem ={setActiveItem} caregivers ={caregivers} patients ={patients} user={user} occ={occurences}/></>;
       case "caregiver":
         return <><Caregiver caregivers={caregivers} refreshData={refreshData}/></>;
       case "patients":

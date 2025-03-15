@@ -182,18 +182,39 @@ gap: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
-
+    justify-content: space-between;
     gap: 10px;
     color: var(--primary-white) !important;
+  }
+  .dashboard-emergency-left-container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+  
+
   }
 
 }
 .emergency-list{
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
   width: 100%;
   background-color: var(--primary-white);
   padding: 1rem 2rem;
   border-radius: 10px;
 
+}
+.emergency-info{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
 }
 /* .dashboard-patient-card, .dashboard-caregiver-card{
     display: flex;
