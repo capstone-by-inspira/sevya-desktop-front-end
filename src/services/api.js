@@ -2,7 +2,7 @@ import axios from "axios";
 import { auth, provider } from "./firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import Caregiver from "../pages/Caregiver";
-const API_URL = "http://192.168.1.212:8800/api";
+const API_URL = "http://localhost:8800/api";
 
 
 

@@ -291,8 +291,8 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     const utcEnd = convertToUTC(selectedDate, endTime);
 
     const shiftData = {
-      checkIn: "",
-      checkOut: "",
+      checkIn: false,
+      checkOut: true,
       caregiverId: caregiver.id,
       patientId: patientId,
       startTime: utcStart,
