@@ -8,7 +8,7 @@ import {
   Button,
 } from "@mui/material";
 
-const DashboardCardPatients = ({ patients }) => {
+const DashboardCardPatients = ({ patients , setActiveItem}) => {
   const patient = patients;
   return (
     <div className="dashboard-card-caregiver">
@@ -39,7 +39,7 @@ const DashboardCardPatients = ({ patients }) => {
       <div className="dashboard-card-right-content">
           <button
           className="sevya-button"
-            onClick={() => alert("View Details clicked")}
+            onClick={() => setActiveItem('patients')}
           >
             View Details
           </button>

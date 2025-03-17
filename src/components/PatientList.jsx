@@ -51,9 +51,9 @@ const PatientList = ({patients, refreshData, closeForm, openForm}) => {
        closeForm={closeModal}
 
        />
-       <div className='patient-list-wrapper'>
+       <div className="caregiverslist1">
       {patients.map((patient) => (
-        <Accordion key={patient.id}>
+        <Accordion key={patient.id} className='caregiver-list-content'>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel-${patient.id}-content`}
@@ -74,7 +74,7 @@ const PatientList = ({patients, refreshData, closeForm, openForm}) => {
               </Box>
          
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails className='patientdetails'>
             <Typography>Email: {patient.email}</Typography>
             <Typography>Phone: {patient.phoneNumber || "N/A"}</Typography>
             <Typography>Address: {patient.address || "N/A"}</Typography>

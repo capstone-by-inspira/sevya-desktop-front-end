@@ -33,9 +33,29 @@
   } */
 
 /* LOGIN PAGE */
+  :root {
+    --primary-white: #ffffff;
+    --primary-blue: #001d3d;
+    --primary-green: #04ed98;
+    --primary-dark: #25578e;
+    --accent-pink: #f500e5;
+    --accent-yellow: #ffb700;
+    --accent-blue: #60efff;
+    --primary-gray: #d9d9d9;
+    --secondary-gray: #eeeeee;
+    --secondary-purple: #f7f2ff;
+    --primary-black: #4e4e4e;
+    --border-dark: #999999;
+  }
+
+  /* LOGIN PAGE */
 
 .login-page,
 .signup-page {
+  background-image: url(./assets/login-background.png);
+  background-size: cover;
+  background-position: center;
+  background-color: #001d3dc3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,6 +65,12 @@
 }
 .login-form,
 .signup-form {
+  background-color: #ffffff3b;
+  backdrop-filter: blur(10px);
+  padding: 3rem 5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--primary-white);
+  color: var(--primary-white);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,7 +83,10 @@
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-
+  color: var(--primary-white);
+  label{
+    color: var(--primary-white);
+  }
   input {
     width: 250px;
     padding: 1rem;
@@ -99,7 +128,7 @@
 /* dashboard */
 .dashboard-page {
   background-color: var(--background-blue);
-  padding: 6rem 1rem 0rem 1rem;
+  padding: 0rem 1rem 0rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,10 +148,23 @@
 }
 
 .dashboard-cards {
+  height: 380px;
+  position: relative;
   background-color: var(--primary-white);
   border: 1px solid var(--primary-gray);
   border-radius: 10px;
-  padding: 1rem;
+  padding: 2rem;
+  .data-length{
+    position: absolute;
+    left: 50%;
+    top: 47%;
+    font-size: 2rem;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.dashbaord-header{
+
 }
 .dashboard-card-caregiver {
   background-color: var(--primary-white);
@@ -196,6 +238,16 @@ gap: 10px;
   }
 
 }
+.data-chart{
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+.css-nsbw82-MuiChartsLegend-root {
+
+  position: relative;
+  bottom: 0;
+}
 .emergency-list{
   box-sizing: border-box;
   display: flex;
@@ -254,6 +306,13 @@ gap: 10px;
 .modal-form-body {
   height: 350px;
   overflow-y: auto;
+}
+.modal-form-footer{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .patient-card {
@@ -378,6 +437,28 @@ gap: 10px;
 
 /* caregiver page */
 
+/* caregiver list */
+
+.cargiverdetails,
+.patientdetails{
+  border-top: solid var(--border-dark) 1.5px;
+}
+
+.caregiverslist1{
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem;
+  
+}
+.caregiver-list-content{
+  border-radius: 8px!important;
+  border-top: none !important;
+}
+.css-1808mag-MuiPaper-root-MuiAccordion-root::before {
+display: none !important;
+}
+/* caregiver list */
+
 /* patients page */
 .patients-page {
   display: flex;
@@ -391,3 +472,98 @@ gap: 10px;
   padding: 10px;
 }
 /* patients page */
+
+/* Main Header*/
+.main-header-root h1{
+  font-size: 20px;
+  font-family: Lato;
+  font-weight: bold;
+}
+
+
+/* Main Header*/
+
+.sevya-file-upload{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  
+}
+
+.file-upload-form {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+.file-upload-label input {
+  display: none;
+}
+.file-upload-label svg {
+  height: 50px;
+  fill: var(--primary-blue);
+  margin-bottom: 20px;
+}
+.file-upload-label {
+  cursor: pointer;
+  background-color: var(--primary-white);
+  padding: 30px 70px;
+  border-radius: 40px;
+  border: 2px dashed var(--primary-blue);
+  /* box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.719); */
+}
+.file-upload-design {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.browse-button {
+  display: none;
+  background-color: var(--primary-blue);
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: white;
+  transition: all 0.3s;
+}
+.browse-button:hover {
+  background-color: rgb(14, 14, 14);
+}
+
+.availability-calendar{
+  display: flex;
+  gap: 20px;
+
+  .dates-list{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    i{
+      color: red;
+    }
+  }
+}
+.react-calendar{
+  border: 1px dotted var(--primary-blue) !important;
+  border-radius: 10px !important;
+}
+.react-calendar__tile--now {
+background-color: var(--primary-green) !important;
+border-radius: 50% !important;
+color: var(--primary-white) !important;
+}
+.react-calendar__tile--hasActive {
+  background-color: var(--primary-blue) !important;
+  border-radius: 50% !important;
+  color: var(--primary-white) !important;
+}
+.react-calendar__tile--active{
+  background-color: var(--primary-blue) !important;
+  border-radius: 50% !important;
+  color: var(--primary-white) !important;
+}

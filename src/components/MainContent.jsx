@@ -21,7 +21,7 @@ const MainContent = ({
   const renderContent = () => {
     switch (activeItem) {
       case "home":
-        return <><Dashboard setActiveItem ={setActiveItem} caregivers ={caregivers} patients ={patients} user={user} occ={occurences}/></>;
+        return <><Dashboard setActiveItem ={setActiveItem} caregivers ={caregivers} patients ={patients} user={user} occ={occurences} refreshData={refreshData}/></>;
       case "caregiver":
         return <><Caregiver caregivers={caregivers} refreshData={refreshData}/></>;
       case "patients":

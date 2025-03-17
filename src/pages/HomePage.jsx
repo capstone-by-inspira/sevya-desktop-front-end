@@ -4,6 +4,8 @@ import MainContent from "../components/MainContent";
 import { getDocuments } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
+import '../index.css';
+
 export const HomePage = () => {
   const navigate = useNavigate();
   const [activeItem, setActiveItem] = useState("home");
@@ -30,7 +32,7 @@ export const HomePage = () => {
   // Set up WebSocket connection
   useEffect(() => {
     // Create a new WebSocket connection
-    const ws = new WebSocket("ws://10.128.229.103:8800");
+    const ws = new WebSocket("ws://192.168.1.212:8800");
 
     // Set the WebSocket instance in state
     setWebsocket(ws);

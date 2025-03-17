@@ -2,13 +2,13 @@ import axios from "axios";
 import { auth, provider } from "./firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import Caregiver from "../pages/Caregiver";
-const API_URL = "http://10.128.229.103:8800/api";
+export const API_URL = "http://192.168.1.212:8800";
 
 
 
 export const signup = async (user) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/signup`, { user });
+    const response = await axios.post(`${API_URL}/api/auth/signup`, { user });
     return response.data;
   } catch (error) {
     console.error("Signup Error:", error);
@@ -26,7 +26,7 @@ export const logout = () => {
 
 export const deleteUserFromAuthentication = async (uid) => {
   try {
-    const response = await axios.delete(`${API_URL}/auth/deleteUser`, {
+    const response = await axios.delete(`${API_URL}/api/auth/deleteUser`, {
       data: { uid }, 
     });
 
@@ -67,7 +67,7 @@ const apiRequest = async (method, endpoint, data = {}, token = "") => {
   try {
     const config = {
       method,
-      url: `${API_URL}/document/${endpoint}`,
+      url: `${API_URL}/api/document/${endpoint}`,
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     };
 
@@ -113,7 +113,7 @@ export const uploadImage = async (file) => {
   formData.append("image", file);
 
   try {
-    const response = await fetch(`${API_URL}/auth/upload`, {
+    const response = await fetch(`${API_URL}/api/auth/upload`, {
       method: "POST",
       body: formData,
     });

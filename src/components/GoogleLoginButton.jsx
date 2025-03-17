@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { auth } from "../services/firebase"; // Import the initialized Firebase app
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { API_URL } from "../services/api";
 
 const provider = new GoogleAuthProvider();
 
@@ -13,7 +14,7 @@ const GoogleLoginButton = ({ setUser }) => {
       const idToken = await result.user.getIdToken();
       console.log(idToken);
       const response = await axios.post(
-        "http://10.128.229.103:8800/api/auth/firebase/google",
+        `${API_URL}/api/auth/firebase/google`,
         {
           idToken,
         }

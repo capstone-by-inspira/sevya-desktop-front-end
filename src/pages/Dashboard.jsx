@@ -11,11 +11,19 @@ import { List, ListItem, ListItemText, Typography } from "@mui/material";
 import DashboardCardCaregivers from "../components/DashboardCardCaregivers";
 import DashboardCardPatients from "../components/DashboardCardPatients";
 import EmergencyOccurrenceList from "../components/EmergencyOccurenceList";
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from "@mui/icons-material/Info";
 import { InfoOutlined } from "@mui/icons-material";
-const Dashboard = ({ caregivers, patients, user , occ}) => {
-  console.log(occ, '>>>>>>>>>>');
-
+import PatientOccupancyChart from "../components/PatientsOccupanyChart";
+const Dashboard = ({
+  caregivers,
+  patients,
+  user,
+  occ,
+  setActiveItem,
+  refreshData,
+}) => {
+  console.log(occ, ">>>>>>>>>>");
+  console.log(setActiveItem, "asasas");
 
   return (
     <>
@@ -31,14 +39,28 @@ const Dashboard = ({ caregivers, patients, user , occ}) => {
         <div className="dashboard-body">
           <div className="dashboard-first-container">
             <div className="dashboard-left-container">
-              <CaregiverShiftPieChart />
+              <CaregiverShiftPieChart
+                data={caregivers}
+                chartTitle={"Number of Caregiver"}
+              />
+            </div>
+            <div className="dashboard-center-container">
+              <PatientOccupancyChart
+                patients={patients}
+                chartTitle={"Patients Ocuupancy Chart"}
+              />
             </div>
             <div className="dashboard-right-container">
-              <CaregiverShiftPieChart />
+              <CaregiverShiftPieChart
+                data={patients}
+                chartTitle={"Number of Patients"}
+              />
             </div>
           </div>
           <div className="dashboard-second-container">
-            <CaregiverAvailabilityChart />
+            <div className="dashboard-container">
+              <CaregiverAvailabilityChart caregivers={caregivers}/>
+            </div>
           </div>
         </div>
 
@@ -51,10 +73,35 @@ const Dashboard = ({ caregivers, patients, user , occ}) => {
               <ul className="list-content">
                 {patients.slice(0, 2).map((c) => (
                   <div key={c.id}>
-                    <DashboardCardPatients patients={c} />
+                    <DashboardCardPatients
+                      patients={c}
+                      refreshData={refreshData}
+                      setActiveItem={setActiveItem}
+                    />
                   </div>
                 ))}
               </ul>
+              <div className="list-footer">
+              <div className="view-more-button"  onClick={() => setActiveItem("patients")}>
+                <svg
+                  width="17"
+                  height="17"
+                  viewBox="0 0 17 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.83333 4.5H14.5M5.83333 8.5H14.5M5.83333 12.5H14.5M2.5 4.5H2.50667M2.5 8.5H2.50667M2.5 12.5H2.50667"
+                    stroke="#25578E"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>View All</span>
+              </div>
+
+            </div>
             </div>
           </div>
 
@@ -64,10 +111,34 @@ const Dashboard = ({ caregivers, patients, user , occ}) => {
               <ul className="list-content">
                 {caregivers.slice(0, 2).map((c) => (
                   <div key={c.id}>
-                    <DashboardCardCaregivers caregivers={c} />
+                    <DashboardCardCaregivers
+                      caregivers={c}
+                      setActiveItem={setActiveItem}
+                    />
                   </div>
                 ))}
               </ul>
+            </div>
+            <div className="list-footer">
+              <div className="view-more-button"  onClick={() => setActiveItem("caregiver")}>
+                <svg
+                  width="17"
+                  height="17"
+                  viewBox="0 0 17 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.83333 4.5H14.5M5.83333 8.5H14.5M5.83333 12.5H14.5M2.5 4.5H2.50667M2.5 8.5H2.50667M2.5 12.5H2.50667"
+                    stroke="#25578E"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span>View All</span>
+              </div>
+
             </div>
           </div>
         </div>
@@ -79,7 +150,7 @@ const Dashboard = ({ caregivers, patients, user , occ}) => {
               <h5>Emergency Occurences</h5>
             </div>
             <div className="dashboard-emergency-right-container">
-            <h5>Total Occurences: {occ.length}</h5>
+              <h5>Total Occurences: {occ.length}</h5>
             </div>
           </div>
           <EmergencyOccurrenceList occurrences={occ} caregivers={caregivers} />
