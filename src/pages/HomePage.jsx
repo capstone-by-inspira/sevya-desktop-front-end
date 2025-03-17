@@ -15,7 +15,7 @@ export const HomePage = () => {
   const [shifts, setShifts] = useState([]);
   const [occurences, setOccurences] = useState([]);
   const [websocket, setWebsocket] = useState(null); // State to hold the WebSocket instance
-
+const [newNotification, setNewNotification] = useState([]);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -50,6 +50,7 @@ export const HomePage = () => {
       console.log("WebSocket message received:", data);
       // Refresh data when a new message is received
       refreshData();
+      notification(data);
     };
 
     // Handle connection errors
@@ -107,6 +108,11 @@ export const HomePage = () => {
     }
   };
 
+  const notification = (data) =>{
+
+    setNewNotification(data);
+
+  }
 
   const refreshData = () => {
     fetchPatients();
@@ -135,6 +141,7 @@ export const HomePage = () => {
             shifts={shifts}
             user={user}
             occurences={occurences}
+            newNotification={newNotification}
           />
         </div>
       </div>

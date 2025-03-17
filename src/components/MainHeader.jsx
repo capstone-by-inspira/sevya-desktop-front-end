@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Menu, MenuItem, IconButton } from '@mui/material';
+import BellNotification from './BellNotification';
 
-const MainHeader = ({ user }) => {
+const MainHeader = ({ user , newNotification}) => {
   const navigate = useNavigate();
   
   // State for menu anchor
@@ -31,26 +32,29 @@ const MainHeader = ({ user }) => {
           <p>Admin Portal</p>
       </div>
 
-      {/* Avatar Dropdown for User */}
-      <div className="user-logout-dropdown">
-        <IconButton onClick={handleMenuClick}  aria-label="user menu" className='user-container'>
-          <Avatar >{user.name[0]}</Avatar>  {/* Use first letter of user's name */}
-          <div className="user-data-container">
-              <p>{user.name}</p>
-              <p>{user.email}</p>
-          </div>
-        </IconButton>
-        {/* Menu for logout */}
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-        >
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </Menu>
+      <div className="right-header-container">
+        <div className="notification"><BellNotification newNotification={newNotification}/></div>
+        {/* Avatar Dropdown for User */}
+        <div className="user-logout-dropdown">
+          <IconButton onClick={handleMenuClick}  aria-label="user menu" className='user-container'>
+            <Avatar >{user.name[0]}</Avatar>  {/* Use first letter of user's name */}
+            <div className="user-data-container">
+                <p>{user.name}</p>
+                <p>{user.email}</p>
+            </div>
+          </IconButton>
+          {/* Menu for logout */}
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
+        </div>
       </div>
     </header>
   );

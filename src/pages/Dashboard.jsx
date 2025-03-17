@@ -5,7 +5,7 @@ import PatientForm from "../components/PatientForm";
 import CaregiverForm from "../components/CaregiverForm";
 import CaregiverAvailabilityChart from "../components/CaregiverAvailabilityChart";
 import CaregiverShiftPieChart from "../components/CaregiverShiftDistrubutionChart";
-import landingImage from "../assets/caregiver-landing-page.jpg";
+import landingImage from "../assets/dashboard-page.png";
 import DashboardCard from "../components/DashboardCardCaregivers";
 import { List, ListItem, ListItemText, Typography } from "@mui/material";
 import DashboardCardCaregivers from "../components/DashboardCardCaregivers";

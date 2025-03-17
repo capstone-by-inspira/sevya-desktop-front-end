@@ -14,7 +14,8 @@ const MainContent = ({
   shifts,
   refreshData,
   user,
-  occurences
+  occurences,
+  newNotification
 }) => {
   const [showHeaderControls, setShowHeaderControls] = useState(false);
 
@@ -36,7 +37,7 @@ const MainContent = ({
   return (
     <div className="main-content-root">
       <MainHeader
-     
+     newNotification={newNotification}
         user  = {user}
         setActiveItem={setActiveItem}
     

@@ -219,6 +219,7 @@ gap: 10px;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  margin-bottom: 10rem;
 
   .dashboard-emergency-header{
     display: flex;
