@@ -10,14 +10,13 @@ const CaregiverTestList = ({ caregivers, removeCaregiver }) => {
   );
 
   return (
-    <div>
+    <div className='caregiver-list-container'>
       {/* Input field for filtering caregivers */}
       <input
         type="text"
         placeholder="Search for caregiver by name"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        style={{ padding: '8px', marginBottom: '10px', width: '100%' }}
       />
       
       {/* Display caregiver cards */}

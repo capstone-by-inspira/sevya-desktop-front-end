@@ -631,6 +631,10 @@ background-color: var(--primary-blue) !important;
     margin-bottom: 90px;
     margin: auto;
   }
+  .main-content-container{
+    background-color: var(--background-blue);
+
+  }
 }
 
 .active {

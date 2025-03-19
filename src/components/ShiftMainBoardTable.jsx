@@ -3,7 +3,12 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ShiftTable from "./ShiftTable";
 import CaregiverList from "./CaregiverTestList";
-import { getDocuments, updateDocument, createDocument , deleteDocument} from "../services/api";
+import {
+  getDocuments,
+  updateDocument,
+  createDocument,
+  deleteDocument,
+} from "../services/api";
 import { convertToUTC, convertDateToFormat } from "../services/utils";
 
 const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
@@ -13,15 +18,15 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   const [timeSlots, setTimeSlots] = useState(["09:00", "14:00", "18:00"]);
   const [dates, setDates] = useState(datesArray);
 
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().split("T")[0]
+  );
 
   const token = localStorage.getItem("token");
   const [patientsData, setPatientsData] = useState(patients);
 
   const [startTime, setStartTime] = useState([]);
   const [endTime, setEndTime] = useState([]);
-
- 
 
   useEffect(() => {
     fetchShiftTimes(selectedDate); // Pass selectedDate to filter shifts on load
@@ -75,7 +80,6 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   };
 
   const assignCaregiver = (patientId, caregiver, time) => {
-   
     setPatientsData((prevPatients) =>
       prevPatients.map((p) => {
         if (p.id === patientId) {
@@ -109,7 +113,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     );
 
     // Prepare the updated data for the backend (only update the specific shift)
-   
+
     const updatedData = {
       shifts: {
         ...patientsData.find((p) => p.id === patientId).shifts, // Keep existing shifts
@@ -131,24 +135,24 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     console.log(caregiver, "caregiver");
     console.log(patientId, "patientId");
     console.log(time, "time");
-  
+
     // Update local state
     setPatientsData((prevPatients) =>
       prevPatients.map((p) => {
         if (p.id === patientId) {
           const updatedShifts = { ...p.shifts };
-  
+
           // Check if the specified time slot matches and remove the caregiver
           if (updatedShifts[time] && updatedShifts[time].id === caregiver.id) {
             delete updatedShifts[time]; // Remove the shift for the specified time
           }
-  
+
           return { ...p, shifts: updatedShifts };
         }
         return p; // Return unchanged patient if ID does not match
       })
     );
-  
+
     // Remove caregiver from the patients collection
     try {
       const updatedPatientData = {
@@ -156,11 +160,11 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
           ...patientsData.find((p) => p.id === patientId).shifts,
         },
       };
-  
+
       // Remove the specific shift
       delete updatedPatientData.shifts[time];
-  
-      console.log(updatedPatientData, 'updatedPatientData');
+
+      console.log(updatedPatientData, "updatedPatientData");
       // Update the patient document in Firestore
       const patientUpdateResult = await updateDocument(
         "patients",
@@ -168,53 +172,53 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
         updatedPatientData,
         token
       );
-  
+
       if (patientUpdateResult.success) {
         console.log("Caregiver removed from patient document successfully");
         refreshData();
       } else {
-        console.error("Error updating patient document:", patientUpdateResult.error);
+        console.error(
+          "Error updating patient document:",
+          patientUpdateResult.error
+        );
       }
     } catch (error) {
       console.error("Error removing caregiver from patient:", error);
     }
-  
+
     // Find and remove caregiver from shift collection
     const [startTime, endTime] = time.split(" - ");
     const utcStart = convertToUTC(selectedDate, startTime);
     const utcEnd = convertToUTC(selectedDate, endTime);
-  
 
-    
-  
-        const shiftToRemove = shifts.find(
-          (shift) =>
-            shift.patientId === patientId &&
-            shift.shiftDate === selectedDate &&
-            shift.startTime === utcStart &&
-            shift.endTime === utcEnd
-        );
-  
-        if (shiftToRemove) {
-          // Update the shift to remove caregiver
-  
-          const deleteResult = await deleteDocument("shifts", shiftToRemove.id, token);
+    const shiftToRemove = shifts.find(
+      (shift) =>
+        shift.patientId === patientId &&
+        shift.shiftDate === selectedDate &&
+        shift.startTime === utcStart &&
+        shift.endTime === utcEnd
+    );
 
-          if (deleteResult.success) {
-            console.log("Caregiver removed from shift successfully");
-            refreshData();
-          } else {
-            console.error("Error updating shift:", updateResult.error);
-          }
-        } else {
-          console.log("No matching shift found for caregiver removal.");
-        }
-      
-   
+    if (shiftToRemove) {
+      // Update the shift to remove caregiver
+
+      const deleteResult = await deleteDocument(
+        "shifts",
+        shiftToRemove.id,
+        token
+      );
+
+      if (deleteResult.success) {
+        console.log("Caregiver removed from shift successfully");
+        refreshData();
+      } else {
+        console.error("Error updating shift:", updateResult.error);
+      }
+    } else {
+      console.log("No matching shift found for caregiver removal.");
+    }
   };
-  
-  
-  
+
   const updateShiftInPatient = async (patientId, patientsData, token) => {
     const result = await updateDocument(
       "patients",
@@ -231,11 +235,9 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     }
   };
 
-  
   const updateShiftInShift = async (patientId, caregiver, time) => {
-
-    console.log(patientId, 'patientID >>>>>>>>>>>>>>');
-    console.log(caregiver, 'caregiver >>>>>>>>>>>>>>>>');
+    console.log(patientId, "patientID >>>>>>>>>>>>>>");
+    console.log(caregiver, "caregiver >>>>>>>>>>>>>>>>");
 
     const [startTime, endTime] = time.split(" - ");
     const utcStart = convertToUTC(selectedDate, startTime);
@@ -302,70 +304,81 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="patient-caregiver-drag-drop-table">
-        <h1>Shift Scheduling</h1>
+        <h3>Shift Scheduling</h3>
 
-        <div className="table-selectors">
-          <label htmlFor="startDate" className="mr-2">
-            Start Date:
-          </label>
-          <input
-            id="startDate"
-            type="date"
-            value={selectedDate}
-            onChange={handleDateChange}
-            className="border p-2"
-          />
-          <br />
-          <label htmlFor="startTime" className="mr-2">
-            Start Time:
-          </label>
-          <input
-            id="startTime"
-            type="time"
-            value={startTime}
-            onChange={handleStartTimeChange}
-            className="border p-2"
-          />
-          <br />
-          <label htmlFor="endTime" className="mr-2">
-            End Time:
-          </label>
-          <input
-            id="endTime"
-            type="time"
-            value={endTime}
-            onChange={handleEndTimeChange}
-            className="border p-2"
-          />
+        <div className="shift-scheduler">
+          <div className="shift-scheduler-left-content">
+            <div className="table-selectors">
+              <div className="table-selector-fields">
+                <label htmlFor="startDate" className="table-selector-label">
+                  Start Date:
+                </label>
+                <input
+                  id="startDate"
+                  type="date"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                  className="border p-2"
+                />
+              </div>
 
-          <button
-            onClick={addTimeSlot}
-            className="sevya-button"
-          >
-            Create Shift Slot
-          </button>
-        </div>
+              <div className="table-selector-fields">
+                <label htmlFor="startTime" className="table-selector-label">
+                  Start Time:
+                </label>
+                <input
+                  id="startTime"
+                  type="time"
+                  value={startTime}
+                  onChange={handleStartTimeChange}
+                  className="border p-2"
+                />
+              </div>
 
-        <div className="patient-careigver-table">
-          <div className="patient-careigver-table-header">
-            <h2>Shifts Chart for {convertDateToFormat(selectedDate)}</h2>
-      
-          </div>
-          <div className="patient-careigver-table-body">
-            <div className="patients-drop-table">
-              <ShiftTable
-                patientsData={patientsData}
-                dates={dates}
-                timeSlots={timeSlots}
-                assignCaregiver={assignCaregiver}
-                removeCaregiver={removeCaregiver}
-                caregivers={caregivers}
+              <div className="table-selector-fields">
+                <label htmlFor="endTime" className="table-selector-label">
+                  End Time:
+                </label>
+                <input
+                  id="endTime"
+                  type="time"
+                  value={endTime}
+                  onChange={handleEndTimeChange}
+                  className="border p-2"
+                />
+              </div>
 
-              />
+              <button onClick={addTimeSlot} className="sevya-button">
+                Confirm
+              </button>
             </div>
+
+            <div className="patient-careigver-table">
+              <hr />
+              <div className="patient-careigver-table-header"></div>
+              <div className="patient-careigver-table-body">
+                <div className="patients-drop-table">
+                  <h4>Shifts Chart for {convertDateToFormat(selectedDate)}</h4>
+
+                  <ShiftTable
+                    patientsData={patientsData}
+                    dates={dates}
+                    timeSlots={timeSlots}
+                    assignCaregiver={assignCaregiver}
+                    removeCaregiver={removeCaregiver}
+                    caregivers={caregivers}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="shift-scheduler-right-content">
             <div className="caregiver-drag-cards-container">
-              <h4>Available Caregivers</h4>
-              <CaregiverList caregivers={caregivers} removeCaregiver={removeCaregiver}/>
+              <h5>Available Caregivers</h5>
+              <CaregiverList
+                caregivers={caregivers}
+                removeCaregiver={removeCaregiver}
+              />
             </div>
           </div>
         </div>
