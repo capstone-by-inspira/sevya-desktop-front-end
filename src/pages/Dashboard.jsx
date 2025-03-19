@@ -150,7 +150,7 @@ const Dashboard = ({
               <h5>Emergency Occurences</h5>
             </div>
             <div className="dashboard-emergency-right-container">
-              <h5>Total Occurences: {occ.length}</h5>
+              <h5>Total Emergency Occurences till today : {occ.length}</h5>
             </div>
           </div>
           <EmergencyOccurrenceList occurrences={occ} caregivers={caregivers} />

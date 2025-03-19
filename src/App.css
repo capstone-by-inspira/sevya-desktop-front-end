@@ -52,6 +52,7 @@
 
 .login-page,
 .signup-page {
+  width: 100vw ;
   background-image: url(./assets/login-background.png);
   background-size: cover;
   background-position: center;

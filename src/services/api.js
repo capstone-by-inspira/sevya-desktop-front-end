@@ -2,7 +2,8 @@ import axios from "axios";
 import { auth, provider } from "./firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import Caregiver from "../pages/Caregiver";
-export const API_URL = "http://192.168.1.212:8800";
+export const API_URL = "http://54.147.56.249:8808";
+// export const API_URL = "https://sevya-desktop-back-end.vercel.app/";
 
 
 

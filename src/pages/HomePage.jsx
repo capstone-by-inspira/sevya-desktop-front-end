@@ -32,7 +32,7 @@ const [newNotification, setNewNotification] = useState([]);
   // Set up WebSocket connection
   useEffect(() => {
     // Create a new WebSocket connection
-    const ws = new WebSocket("ws://192.168.1.212:8800");
+    const ws = new WebSocket("ws://54.147.56.249:8808");
 
     // Set the WebSocket instance in state
     setWebsocket(ws);

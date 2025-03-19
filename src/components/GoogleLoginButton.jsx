@@ -11,6 +11,7 @@ const GoogleLoginButton = ({ setUser }) => {
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
+      console.log(result, 'resu');
       const idToken = await result.user.getIdToken();
       console.log(idToken);
       const response = await axios.post(

@@ -8,7 +8,7 @@ const BellNotification = ({ newNotification }) => {
 
   // Function to play notification sound
   const playNotificationSound = () => {
-    const audio = new Audio("./public/notificationSound.mp3"); // Ensure this file exists in your public folder
+    const audio = new Audio("./notificationSound.mp3"); // Ensure this file exists in your public folder
     audio.play().catch((error) => console.error("Audio play failed:", error));
   };
 
