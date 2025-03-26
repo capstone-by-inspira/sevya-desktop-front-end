@@ -30,7 +30,7 @@ const DashboardCardPatients = ({ patients , setActiveItem}) => {
               <p className="user-name">
                 {patient.firstName} {patient.lastName}
               </p>
-              <p className="user-gender">Male</p>
+              <p className="user-gender">Test</p>
               <p className="user-specialization">{patient.medicalConditions?.join(", ")}</p>
           </div>
       

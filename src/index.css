@@ -191,8 +191,8 @@ body {
 }
 
 .main-header-root {
-  z-index: 99999;
-  width: 100%;
+  z-index: 9;
+    width: 100%;
   position: fixed;
   background-color: var(--primary-white);
   display: flex;

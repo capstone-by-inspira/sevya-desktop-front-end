@@ -10,6 +10,7 @@ import {
   deleteDocument,
 } from "../services/api";
 import { convertToUTC, convertDateToFormat } from "../services/utils";
+import toast, { Toaster } from "react-hot-toast";
 
 const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   // console.log(shifts);
@@ -132,9 +133,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   };
 
   const removeCaregiver = async (caregiver, patientId, time) => {
-    console.log(caregiver, "caregiver");
-    console.log(patientId, "patientId");
-    console.log(time, "time");
+  
 
     // Update local state
     setPatientsData((prevPatients) =>
@@ -174,6 +173,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
       );
 
       if (patientUpdateResult.success) {
+
         console.log("Caregiver removed from patient document successfully");
         refreshData();
       } else {
@@ -183,7 +183,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
         );
       }
     } catch (error) {
-      console.error("Error removing caregiver from patient:", error);
+      toast.error("Error removing caregiver from patient:", error);
     }
 
     // Find and remove caregiver from shift collection
@@ -209,6 +209,8 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
       );
 
       if (deleteResult.success) {
+        toast.success('Shift removed successfully')
+
         console.log("Caregiver removed from shift successfully");
         refreshData();
       } else {
@@ -228,9 +230,37 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     );
     if (result.success) {
       console.log("Shift Updated:", result.data);
-      alert("Shift has been created");
+
       refreshData();
+      toast.success("Shift created successfully");
+    
+      //   position: 'top-center',
+
+      //   // Styling
+      //   style: {},
+      //   className: '',
+
+      //   // Custom Icon
+      //   icon: '⏰',
+
+      //   // Change colors of success/error/loading icon
+      //   iconTheme: {
+      //     primary: '#000',
+      //     secondary: '#fff',
+      //   },
+
+      //   // Aria
+      //   ariaProps: {
+      //     role: 'status',
+      //     'aria-live': 'polite',
+      //   },
+
+      //   // Additional Configuration
+      //   removeDelay: 1000,
+      // });
     } else {
+      toast.error("Shift creation error. Please try again");
+
       console.error(result.error);
     }
   };
@@ -302,88 +332,94 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   };
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className="patient-caregiver-drag-drop-table">
-        <h3>Shift Scheduling</h3>
+    <>
+      <Toaster />
 
-        <div className="shift-scheduler">
-          <div className="shift-scheduler-left-content">
-            <div className="table-selectors">
-              <div className="table-selector-fields">
-                <label htmlFor="startDate" className="table-selector-label">
-                  Start Date:
-                </label>
-                <input
-                  id="startDate"
-                  type="date"
-                  value={selectedDate}
-                  onChange={handleDateChange}
-                  className="border p-2"
-                />
-              </div>
+      <DndProvider backend={HTML5Backend}>
+        <div className="patient-caregiver-drag-drop-table">
+          <h3>Shift Scheduling</h3>
 
-              <div className="table-selector-fields">
-                <label htmlFor="startTime" className="table-selector-label">
-                  Start Time:
-                </label>
-                <input
-                  id="startTime"
-                  type="time"
-                  value={startTime}
-                  onChange={handleStartTimeChange}
-                  className="border p-2"
-                />
-              </div>
-
-              <div className="table-selector-fields">
-                <label htmlFor="endTime" className="table-selector-label">
-                  End Time:
-                </label>
-                <input
-                  id="endTime"
-                  type="time"
-                  value={endTime}
-                  onChange={handleEndTimeChange}
-                  className="border p-2"
-                />
-              </div>
-
-              <button onClick={addTimeSlot} className="sevya-button">
-                Confirm
-              </button>
-            </div>
-
-            <div className="patient-careigver-table">
-              <hr />
-              <div className="patient-careigver-table-header"></div>
-              <div className="patient-careigver-table-body">
-                <div className="patients-drop-table">
-                  <h4>Shifts Chart for {convertDateToFormat(selectedDate)}</h4>
-
-                  <ShiftTable
-                    patientsData={patientsData}
-                    dates={dates}
-                    timeSlots={timeSlots}
-                    assignCaregiver={assignCaregiver}
-                    removeCaregiver={removeCaregiver}
-                    caregivers={caregivers}
+          <div className="shift-scheduler">
+            <div className="shift-scheduler-left-content">
+              <div className="table-selectors">
+                <div className="table-selector-fields">
+                  <label htmlFor="startDate" className="table-selector-label">
+                    Start Date:
+                  </label>
+                  <input
+                    id="startDate"
+                    type="date"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    className="border p-2"
                   />
+                </div>
+
+                <div className="table-selector-fields">
+                  <label htmlFor="startTime" className="table-selector-label">
+                    Start Time:
+                  </label>
+                  <input
+                    id="startTime"
+                    type="time"
+                    value={startTime}
+                    onChange={handleStartTimeChange}
+                    className="border p-2"
+                  />
+                </div>
+
+                <div className="table-selector-fields">
+                  <label htmlFor="endTime" className="table-selector-label">
+                    End Time:
+                  </label>
+                  <input
+                    id="endTime"
+                    type="time"
+                    value={endTime}
+                    onChange={handleEndTimeChange}
+                    className="border p-2"
+                  />
+                </div>
+
+                <button onClick={addTimeSlot} className="sevya-button">
+                  Confirm
+                </button>
+              </div>
+
+              <div className="patient-careigver-table">
+                <hr />
+                <div className="patient-careigver-table-header"></div>
+                <div className="patient-careigver-table-body">
+                  <div className="patients-drop-table">
+                    <h4>
+                      Shifts Chart for {convertDateToFormat(selectedDate)}
+                    </h4>
+
+                    <ShiftTable
+                      patientsData={patientsData}
+                      dates={dates}
+                      timeSlots={timeSlots}
+                      assignCaregiver={assignCaregiver}
+                      removeCaregiver={removeCaregiver}
+                      caregivers={caregivers}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="shift-scheduler-right-content">
-            <div className="caregiver-drag-cards-container">
-              <h5>Available Caregivers</h5>
-              <CaregiverList
-                caregivers={caregivers}
-                removeCaregiver={removeCaregiver}
-              />
+            <div className="shift-scheduler-right-content">
+              <div className="caregiver-drag-cards-container">
+                <h5>Available Caregivers</h5>
+                <CaregiverList
+                  caregivers={caregivers}
+                  removeCaregiver={removeCaregiver}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </DndProvider>
+      </DndProvider>
+    </>
   );
 };
 

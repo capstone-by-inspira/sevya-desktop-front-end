@@ -412,8 +412,12 @@ background-color: var(--primary-white);
   justify-content: space-between;
 }
 .patient-custom-table{
+  width: 100%;
+  max-width: 1000px;
+    overflow: scroll;
   padding: 1rem 0rem;
   input{
+    max-width: 300px;
     border-radius: 20px;
     border: 1px solid var(--primary-gray);
     color: var(--primary-black);
@@ -537,16 +541,17 @@ gap: 2rem;
 }
 
 .caregiver-card-drop {
-  border: 1px solid black;
-  background-color: white;
-  width: 200px;
-  margin: 10px;
-  padding: 10px;
-  height: 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px inset;
-
-  border-radius: 10px;
+  display: flex;
+    border: 1px solid var(--primary-gray);
+    background-color: white;
+    width: 200px;
+    margin: 10px 0px;
+    padding: 10px;
+    height: 35px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px inset;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 /* caregiver page */

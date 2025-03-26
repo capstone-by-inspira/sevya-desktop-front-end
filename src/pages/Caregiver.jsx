@@ -17,6 +17,7 @@ const Caregiver = ({ caregivers, refreshData }) => {
   };
   return (
     <div className="caregiver-page">
+
       <div className="caregiver-page-header">
         <h3>CAREGIVERS</h3>
         <button className="sevya-button-inverse" onClick={openForm}>Add Caregiver</button>

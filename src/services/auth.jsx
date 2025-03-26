@@ -19,6 +19,8 @@ export const AuthProvider = ({ children }) => {
     setToken("");
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    localStorage.removeItem("shifts_info");
+
   };
 
   return (

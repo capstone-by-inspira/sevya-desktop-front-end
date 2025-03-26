@@ -44,17 +44,17 @@ const CaregiverForm = ({
   const [selectedDates, setSelectedDates] = useState([]);
 
   const [caregiverData, setCaregiverData] = useState({
-    firstName: "",
-    lastName: "",
+    firstName: "Harvey",
+    lastName: "Spector",
     password: "",
     email: "",
-    phoneNumber: "",
-    licenseNumber: "",
-    address: "",
-    specialization: "",
-    experienceYears: "",
+    phoneNumber: "7788585133",
+    licenseNumber: "9999",
+    address: "Los Angeles",
+    specialization: "childcare",
+    experienceYears: "5",
     availability: [],
-    collectionName: "",
+    collectionName: "caregivers",
     image: "",
   });
 
@@ -142,6 +142,7 @@ const CaregiverForm = ({
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
+    console.log(file, 'uploadddlcnklnclancslnalcnsklcnlkcnaklnlascnlnacsnlacsnlkcasl');
     setFileUpload(file);
     const uploadedImageUrl = await uploadImage(file);
     if (uploadedImageUrl.success) {

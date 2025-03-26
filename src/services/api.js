@@ -2,10 +2,12 @@ import axios from "axios";
 import { auth, provider } from "./firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import Caregiver from "../pages/Caregiver";
-export const API_URL = "http://3.227.60.242:8808";
+// export const API_URL = "http://3.227.60.242:8808";
+export const API_URL = "https://sevya-admin.site:8808";
+
+// export const API_URL = "http://localhost:8800";
+export const WS_URL = "ws://sevya-admin.site:8808";
 // export const API_URL = "https://sevya-desktop-back-end.vercel.app/";
-
-
 
 export const signup = async (user) => {
   try {
@@ -17,18 +19,19 @@ export const signup = async (user) => {
   }
 };
 
-
 // Logout
 export const logout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  localStorage.removeItem("shifts_info");
+
   window.location.reload();
 };
-
 
 export const deleteUserFromAuthentication = async (uid) => {
   try {
     const response = await axios.delete(`${API_URL}/api/auth/deleteUser`, {
-      data: { uid }, 
+      data: { uid },
     });
 
     return response.data;
@@ -38,11 +41,7 @@ export const deleteUserFromAuthentication = async (uid) => {
   }
 };
 
-
 const token = localStorage.getItem("token");
-
-
-
 
 // const apiRequest = async (method, endpoint, data = {}, token = "") => {
 //   console.log(method, 'method');
@@ -63,7 +62,6 @@ const token = localStorage.getItem("token");
 //   }
 // };
 
-
 const apiRequest = async (method, endpoint, data = {}, token = "") => {
   try {
     const config = {
@@ -80,9 +78,10 @@ const apiRequest = async (method, endpoint, data = {}, token = "") => {
     return { success: true, data: response.data };
   } catch (error) {
     console.error("API Error:", error.response?.data || error.message);
-    return { 
-      success: false, 
-      error: error.response?.data?.error || error.message || "Something went wrong" 
+    return {
+      success: false,
+      error:
+        error.response?.data?.error || error.message || "Something went wrong",
     };
   }
 };
@@ -107,11 +106,11 @@ export const updateDocument = (collection, id, data, token) =>
 export const deleteDocument = (collection, id, token) =>
   apiRequest("DELETE", `${collection}/${id}`, {}, token);
 
-
-
 export const uploadImage = async (file) => {
+  console.log(file, 'backedn mein ayi hai jo');
   const formData = new FormData();
   formData.append("image", file);
+  console.log(file.type, 'hello fifle type');
 
   try {
     const response = await fetch(`${API_URL}/api/auth/upload`, {
@@ -125,21 +124,9 @@ export const uploadImage = async (file) => {
     }
 
     const imageUrl = upload_image.imageUrl;
-  //  const newData = { ...data, imageUrl }
+   
+    return { success: true, imageUrl: imageUrl };
 
-    // let dbResponse;
-
-    // if (id) {
-    //   // Step 2A: Update an existing document with the new image URL
-    //   dbResponse = await updateDocument(collection, id, newData, token);
-    // } else {
-    //   // Step 2B: Create a new document with the image URL
-    //   dbResponse = await createDocument(collection, newData, token);
-    // }
-    return { success: true, imageUrl:imageUrl };
-
-
-  //  return { success: true, imageUrl, docId: dbResponse.data.id || docId };
   } catch (error) {
     console.error("Upload error:", error);
     throw error;

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { IconButton, Badge, Menu, MenuItem, Typography } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const BellNotification = ({ newNotification }) => {
+  console.log(newNotification, 'new');
   const [anchorEl, setAnchorEl] = useState(null);
   const [notifications, setNotifications] = useState([]);
+  const isFirstRender = useRef(true); // Track first render
 
   // Function to play notification sound
   const playNotificationSound = () => {
@@ -14,8 +16,19 @@ const BellNotification = ({ newNotification }) => {
 
   // Effect to add newNotification to the list and play sound
   useEffect(() => {
-    if (newNotification?.data) {
-      const formattedNotification = `${newNotification.data.name} event occurred at ${new Date(newNotification.data.timestamp).toLocaleString()}`;
+    if (isFirstRender.current) {
+      isFirstRender.current = false; // Skip first render
+      return;
+    }
+
+    if (newNotification && !notifications.some((n) => n.id === newNotification.id)) {
+      const formattedNotification = {
+        id: newNotification.id,
+        title: newNotification.title,
+        body: newNotification.body,
+        createdBy: newNotification.createdBy,
+        createdAt: new Date(newNotification.createdAt).toLocaleString(),
+      };
       setNotifications((prev) => [formattedNotification, ...prev]); // Add to top
       playNotificationSound(); // Play sound on new notification
     }
@@ -31,8 +44,8 @@ const BellNotification = ({ newNotification }) => {
 
   return (
     <div>
-
       {/* Bell Icon with Notification Badge */}
+      {console.log(notifications.length, "notification-length")}
       <IconButton color="primary" onClick={handleClick}>
         <Badge badgeContent={notifications.length} color="error" overlap="circular">
           <NotificationsIcon />
@@ -54,7 +67,10 @@ const BellNotification = ({ newNotification }) => {
         {notifications.length > 0 ? (
           notifications.map((notification, index) => (
             <MenuItem key={index}>
-              <Typography variant="body2">{notification}</Typography>
+              <Typography variant="body2">
+                <strong>{notification.title}</strong>: {notification.body} <br />
+                <em>By {notification.createdBy}</em>
+              </Typography>
             </MenuItem>
           ))
         ) : (

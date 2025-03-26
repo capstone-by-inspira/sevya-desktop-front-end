@@ -3,7 +3,7 @@ import SideBar from "../components/SideBar";
 import MainContent from "../components/MainContent";
 import { getDocuments } from "../services/api";
 import { useNavigate } from "react-router-dom";
-
+import {WS_URL} from '../services/api'
 import '../index.css';
 
 export const HomePage = () => {
@@ -15,8 +15,10 @@ export const HomePage = () => {
   const [shifts, setShifts] = useState([]);
   const [occurences, setOccurences] = useState([]);
   const [websocket, setWebsocket] = useState(null); // State to hold the WebSocket instance
-const [newNotification, setNewNotification] = useState([]);
+const [newNotification, setNewNotification] = useState(null);
+
   const token = localStorage.getItem("token");
+
 
   useEffect(() => {
     if (token) {
@@ -32,7 +34,7 @@ const [newNotification, setNewNotification] = useState([]);
   // Set up WebSocket connection
   useEffect(() => {
     // Create a new WebSocket connection
-    const ws = new WebSocket("ws://3.227.60.242:8808");
+    const ws = new WebSocket(WS_URL);
 
     // Set the WebSocket instance in state
     setWebsocket(ws);
@@ -50,7 +52,12 @@ const [newNotification, setNewNotification] = useState([]);
       console.log("WebSocket message received:", data);
       // Refresh data when a new message is received
       refreshData();
-      notification(data);
+
+      if(data.collection == 'notifications'){
+        setNewNotification(data.data);
+        console.log(data.data, 'notifiacatiosssss');
+      }
+      // notification(data);
     };
 
     // Handle connection errors
@@ -108,11 +115,21 @@ const [newNotification, setNewNotification] = useState([]);
     }
   };
 
-  const notification = (data) =>{
+  const fetchNotifications = async () => {
+    const result = await getDocuments("notifications", token);
+    console.log(result, 'notifications');
+    if (result.success) {
+     // setNewNotification(result.data);
+    } else {
+      console.error(result.error);
+    }
+  };
 
-    setNewNotification(data);
+  // const notification = (data) =>{
 
-  }
+  //   setNewNotification(data);
+
+  // }
 
   const refreshData = () => {
     fetchPatients();

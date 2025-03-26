@@ -8,6 +8,8 @@ import {
   useParams,
 } from "react-router-dom";
 import { AuthProvider } from "./services/auth.jsx";
+import toast, { Toaster } from 'react-hot-toast';
+
 // import Home from "./pages/HomePage";
 // import Login from "./pages/Login";
 // import Dashboard from "./pages/Dashboard";
@@ -31,11 +33,13 @@ const App = () => {
     return token ? element : <Navigate to="/login" />;
   };
 
+
   return (
       //  <Navbar />
          
 <>
-        <RefreshHandler setIsAuthenticated={setIsAuthenticated} />
+{/* <Toaster position="top-right" reverseOrder={false} /> */}
+<RefreshHandler setIsAuthenticated={setIsAuthenticated} />
 
         <Routes>
 
