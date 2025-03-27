@@ -32,8 +32,7 @@ const PatientOccupancyChart = ({ patients, chartTitle }) => {
         text: "Patient Occupancy Over Time",
         align: "center",
       },
-      colors:['#25578e'],
-
+      colors: ['#25578e'],
       tooltip: {
         x: {
           format: "dd MMM yyyy",
@@ -50,6 +49,8 @@ const PatientOccupancyChart = ({ patients, chartTitle }) => {
     patients.forEach((patient) => {
       const admissionDate = dayjs(patient.admissionDate).valueOf(); // Convert admission date to timestamp
       const dischargeDate = dayjs(patient.dischargeDate).valueOf(); // Convert discharge date to timestamp
+
+      if (!admissionDate || !dischargeDate) return; // Skip if any date is invalid
 
       // Track changes in patient occupancy
       occupancyMap[admissionDate] = (occupancyMap[admissionDate] || 0) + 1;
@@ -78,7 +79,7 @@ const PatientOccupancyChart = ({ patients, chartTitle }) => {
 
   return (
     <div className="dashboard-cards">
-      <div className="dashbaord-header">
+      <div className="dashboard-header">
         <h5>{chartTitle}</h5>
       </div>
 

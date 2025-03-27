@@ -2,6 +2,7 @@ import React from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { Typography } from "@mui/material";
 
+
 const PieChartComponent = ({ data, chartTitle }) => {
   console.log(data, "care");
   const colors = ["#25578e", "#0fbfae"];
@@ -14,7 +15,9 @@ const PieChartComponent = ({ data, chartTitle }) => {
   }));
 
   return (
+
     <div className="dashboard-cards">
+
       <div className="dashbaord-header">
         <h5>{chartTitle}</h5>
         
