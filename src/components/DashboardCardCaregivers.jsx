@@ -8,7 +8,7 @@ import {
   Button,
 } from "@mui/material";
 
-const DashboardCardCaregivers = ({ caregivers , setActiveItem}) => {
+const DashboardCardCaregivers = ({ caregivers, setActiveItem }) => {
   const caregiver = caregivers;
   return (
     <div className="dashboard-card-caregiver">
@@ -24,28 +24,30 @@ const DashboardCardCaregivers = ({ caregivers , setActiveItem}) => {
                 caregiver.lastName?.[0] || ""
               }`}
           </Avatar>
-          </div>
+        </div>
 
-          <div className="dashboard-user-info">
-              <p className="user-name">
-                {caregiver.firstName} {caregiver.lastName}
-              </p>
-              <p className="user-gender">Male</p>
-              <p className="user-specialization">{caregiver.specialization}</p>
-          </div>
-      
-
+        <div className="dashboard-user-info">
+          <p className="user-name">
+            {caregiver.firstName} {caregiver.lastName}
+          </p>
+          <p className="user-gender">{caregiver.gender}</p>
+          <p className="user-specialization">{caregiver.specialization}</p>
+        </div>
       </div>
       <div className="dashboard-card-right-content">
-          <button
+        <button
           className="sevya-button"
-            onClick={() => setActiveItem("caregiver")}
-          >
-            View Details
-          </button>
+          onClick={() => setActiveItem("caregiver")}
+        >
+          View Details
+          
+          <div class="arrow-wrapper">
+            <div class="arrow"></div>
+          </div>
+        </button>
       </div>
     </div>
-  )
+  );
 };
 
 export default DashboardCardCaregivers;

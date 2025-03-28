@@ -1,12 +1,16 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
 import Modal from "../components/Modal";
+import { formatTimestamp } from "../services/utils";
 import {
   createDocument,
   getDocuments,
   updateDocument,
   uploadImage,
 } from "../services/api";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import {
   Stepper,
@@ -16,6 +20,7 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
+import dayjs from "dayjs";
 
 const steps = [
   "Personal Details",
@@ -41,10 +46,13 @@ const PatientForm = ({
 
   const [isUpdate, setIsUpdate] = useState(false);
   const [fileUpload, setFileUpload] = useState();
+  const [dateTime, setDateTime] = useState(null);
 
   const [formData, setFormData] = useState({
     firstName: "john",
     lastName: "doe",
+    age: "",
+    gender: "Male",
     email: "johndoe@gmail.com",
     phoneNumber: "987654321",
     address: "123 main st",
@@ -52,8 +60,8 @@ const PatientForm = ({
     medications: ["saridon"],
     emergencyContact: { name: "jenny", relation: "sister", phone: "997788822" },
     insuranceDetails: { provider: "jason", policyNumber: "jl112" },
-    admissionDate: "20-10-2025",
-    dischargeDate: "25-10-2025",
+    admissionDate: dayjs(),
+    dischargeDate: dayjs(),
     image: "",
     shifts: {},
   });
@@ -78,9 +86,24 @@ const PatientForm = ({
     }
   }, [isEdit]); //
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleChange = (e, fieldName) => {
+    if (e.target) {
+      const { name, value } = e.target;
+
+      // Handle changes for regular fields (text fields)
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    } else if (e && e.isValid) {
+      // Handle DateTimePicker changes separately (e is the date object for DateTimePicker)
+      setFormData({
+        ...formData,
+        [fieldName]: e, // Store the selected dayjs object for DateTimePicker fields
+      });
+    } else {
+      console.error("Event target is undefined, cannot process change.");
+    }
   };
 
   const handleNestedChange = (e, parentKey) => {
@@ -227,6 +250,24 @@ const PatientForm = ({
                     required
                   />
                   <TextField
+                    label="Age"
+                    name="age"
+                    fullWidth
+                    margin="normal"
+                    value={formData.age}
+                    onChange={handleChange}
+                    required
+                  />
+                  <TextField
+                    label="Gender"
+                    name="gender"
+                    fullWidth
+                    margin="normal"
+                    value={formData.gender}
+                    onChange={handleChange}
+                    required
+                  />
+                  <TextField
                     label="Email"
                     name="email"
                     type="email"
@@ -299,9 +340,33 @@ const PatientForm = ({
                       })
                     }
                   />
-                  <input
-                                    label="Admission Date"
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateTimePicker
+                      className="date-time-patient"
+                      label="Admission Date"
+                      value={dayjs(formData.admissionDate)}
+                      onChange={(newValue) =>
+                        handleChange(newValue, "admissionDate")
+                      }
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
 
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateTimePicker
+                    className="date-time-patient"
+                      fullWidth
+                      label="Discharge Date"
+                      value={dayjs(formData.dischargeDate)}
+                      onChange={(newValue) =>
+                        handleChange(newValue, "dischargeDate")
+                      }
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
+
+                  {/* <input
+                    label="Admission Date"
                     type="datetime-local"
                     name="admissionDate"
                     id="admissionDate"
@@ -310,61 +375,20 @@ const PatientForm = ({
                   />
 
                   <input
-                  label="Discharge Date"
+                    label="Discharge Date"
                     type="datetime-local"
                     name="dischargeDate"
                     id="dischargeDate"
                     value={formData.dischargeDate}
                     onChange={handleChange}
-                  />
+                  /> */}
                 </>
               )}
 
               {/* Step 3: Caregiver Assignment */}
               {activeStep === 2 && (
                 <div className="sevya-file-uplaod">
-                  <h2>Upload Profile Picture</h2>
-                  {/* <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                  /> */}
-
-                  {/* <label for="file" className="sevya-file-uplaod">
-                    <div class="icon">
-                      <svg
-                        viewBox="0 0 124 24"
-                        fill=""
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g
-                          id="SVGRepo_tracerCarrier"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></g>
-                        <g id="SVGRepo_iconCarrier">
-                          {" "}
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM14 15.5C14 14.1193 15.1193 13 16.5 13C17.8807 13 19 14.1193 19 15.5V16V17H20C21.1046 17 22 17.8954 22 19C22 20.1046 21.1046 21 20 21H13C11.8954 21 11 20.1046 11 19C11 17.8954 11.8954 17 13 17H14V16V15.5ZM16.5 11C14.142 11 12.2076 12.8136 12.0156 15.122C10.2825 15.5606 9 17.1305 9 19C9 21.2091 10.7909 23 13 23H20C22.2091 23 24 21.2091 24 19C24 17.1305 22.7175 15.5606 20.9844 15.122C20.7924 12.8136 18.858 11 16.5 11Z"
-                            fill=""
-                          ></path>{" "}
-                        </g>
-                      </svg>
-                    </div>
-                    <div class="text">
-                      <span>Click to upload image</span>
-                    </div>
-                    <input
-                      id="file"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleFileChange}
-                      style={{ display: "none" }}
-                    />
-                  </label> */}
+                
 
                   <form className="file-upload-form">
                     <label htmlFor="file" className="file-upload-label">
@@ -384,7 +408,7 @@ const PatientForm = ({
                     </label>
                   </form>
 
-                  {fileUpload && <p>Image uploaded successfully!</p>}
+                  {fileUpload && <p className="image-uploaded">Image uploaded successfully!</p>}
                 </div>
               )}
 
@@ -511,10 +535,10 @@ const PatientForm = ({
                   <hr />
                   <p>
                     <strong>Admission Date:</strong>
-                    {formData.admissionDate}
+                    {formatTimestamp(formData.admissionDate)}
                   </p>
                   <p>
-                    <strong>Discharge Date:</strong> {formData.dischargeDate}
+                    <strong>Discharge Date:</strong> {formatTimestamp(formData.dischargeDate)}
                   </p>
                 </div>
               )}
@@ -531,6 +555,9 @@ const PatientForm = ({
               {activeStep < steps.length - 1 ? (
                 <button className="sevya-button" onClick={handleNext}>
                   Next
+                  <div class="arrow-wrapper">
+            <div class="arrow"></div>
+          </div>
                 </button>
               ) : !isUpdate ? (
                 <button className="sevya-button" onClick={handleSubmit}>

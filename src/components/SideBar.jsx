@@ -35,7 +35,7 @@ const SideBar = ({ activeItem, setActiveItem, user }) => {
                   activeItem === "home" ? "active" : ""
                 }`}
               >
-                <HomeIcon /> <div className="nav-item-label">Home</div>
+                <HomeIcon /> <div className="nav-item-label">HOME</div>
               </a>
             </div>
             <div className="sidebaricons">

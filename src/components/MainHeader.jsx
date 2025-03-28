@@ -28,7 +28,7 @@ const MainHeader = ({ user , newNotification}) => {
   return (
     <header className="main-header-root">
       <div className="welcome-container">
-          <p>Welcome, {user.name}!</p>
+          <p className='font-weight-500'>Welcome, {user.name}!</p>
           <p>Admin Portal</p>
       </div>
 

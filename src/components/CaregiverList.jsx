@@ -15,7 +15,6 @@ import CaregiverForm from "./CaregiverForm";
 import Avatar from "@mui/material/Avatar";
 import { Box } from "@mui/material";
 
-
 const CaregiverList = ({ caregivers, refreshData, closeForm, openForm }) => {
   const token = localStorage.getItem("token");
   const [singleCaregiverData, setSingleCaregiverData] = useState();
@@ -53,31 +52,66 @@ const CaregiverList = ({ caregivers, refreshData, closeForm, openForm }) => {
       />
       <div className="caregiverslist1">
         {caregivers.map((caregiver) => (
-          <Accordion key={caregiver.id }className="caregiver-list-content">
+          <Accordion key={caregiver.id} className="caregiver-list-content">
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel-${caregiver.id}-content`}
               id={`panel-${caregiver.id}-header`}
             >
-               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <div className="userDetails">
                 <Avatar
                   src={caregiver?.image || ""}
                   alt={`${caregiver.firstName} ${caregiver.lastName}`}
-                  sx={{ width: 40, height: 40, bgcolor: "#1976d2" }}
+                  sx={{ width: 50, height: 50, bgcolor: "#25578E" }}
                 >
                   {!caregiver.profileImage &&
-                    `${caregiver.firstName?.[0] || ""}${caregiver.lastName?.[0] || ""}`}
+                    `${caregiver.firstName?.[0] || ""}${
+                      caregiver.lastName?.[0] || ""
+                    }`}
                 </Avatar>
-                <Typography component="span">
-                  {caregiver.firstName} {caregiver.lastName}
-                </Typography>
-              </Box>
-            
+                <div className="userHeader">
+                  <div className="userleftSection">
+                    <div className="userName">
+                      <p className="font-weight-400">
+                        {caregiver?.firstName.charAt(0).toUpperCase() +
+                          caregiver?.firstName.slice(1) || 'N.A.'}{" "}
+                        {caregiver?.lastName.charAt(0).toUpperCase() +
+                          caregiver?.lastName.slice(1) || 'N.A.'}
+                      </p>
+                      <p>({caregiver.age})</p>
+                    </div>
+
+                    <p>
+                      {caregiver?.gender.charAt(0).toUpperCase() +
+                        caregiver?.gender.slice(1).toLowerCase() || 'N.A.'}
+                    </p>
+                  </div>
+                  <div component="userRightSection"><p>{caregiver.email}</p></div>
+                </div>
+              </div>
             </AccordionSummary>
             <AccordionDetails className="cargiverdetails">
-              <Typography>Email: {caregiver.email}</Typography>
-              <Typography>Phone: {caregiver.phoneNumber || "N/A"}</Typography>
-              <Typography>Address: {caregiver.address || "N/A"}</Typography>
+              <div className="userWork">
+              <p>
+                  <span className="font-weight-400">Phone Number :</span>{" "}
+                  {caregiver?.phoneNumber || 'N.A.'}
+                </p>
+
+                <p>
+                  <span className="font-weight-400">Address :</span>{" "}
+                  {caregiver?.address || 'N.A.'}
+                </p>
+
+                <p>
+                  <span className="font-weight-400">Years of Experience :</span>{" "}
+                  {caregiver?.experienceYears || 'N.A.'}
+                </p>
+                <p>
+                  <span className="font-weight-400">Specialization :</span>{" "}
+                  {caregiver?.specialization.charAt(0).toUpperCase() +
+                    caregiver?.specialization.slice(1).toLowerCase() || 'N.A.'} 
+                </p>
+              </div>
             </AccordionDetails>
             <AccordionActions>
               <Button color="primary" onClick={() => handleEdit(caregiver.id)}>

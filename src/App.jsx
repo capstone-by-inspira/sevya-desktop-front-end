@@ -22,6 +22,12 @@ import {Signup} from './pages/SignUp.jsx';
 import {RefreshHandler} from './pages/RefreshHandler.jsx'
 
 
+const isTokenExpired = (token) => {
+  if (!token) return true;
+  const payload = JSON.parse(atob(token.split('.')[1])); // Decoding JWT payload
+  const expirationTime = payload.exp * 1000; // Expiration time in milliseconds
+  return expirationTime < Date.now(); // Returns true if the token is expired
+};
 
 
 const App = () => {
@@ -30,8 +36,15 @@ const App = () => {
 
   const PrivateRouter = ({ element }) => {
     const token = localStorage.getItem("token");
+    if (isTokenExpired(token)) {
+      localStorage.removeItem("token"); // Optionally, remove expired token
+      toast.error("Session expired. Please log in again.");
+      return <Navigate to="/login" />;
+    }
     return token ? element : <Navigate to="/login" />;
   };
+
+
 
 
   return (
@@ -51,7 +64,11 @@ const App = () => {
           />
 
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+          path="/dashboard"
+          element={<PrivateRouter element={<Dashboard />} />}
+        />
+
         </Routes>
 
         </>

@@ -383,6 +383,9 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
 
                 <button onClick={addTimeSlot} className="sevya-button">
                   Confirm
+                  <div class="arrow-wrapper">
+            <div class="arrow"></div>
+          </div>
                 </button>
               </div>
 

@@ -28,10 +28,7 @@ const PatientOccupancyChart = ({ patients, chartTitle }) => {
         },
         min: 0,
       },
-      title: {
-        text: "Patient Occupancy Over Time",
-        align: "center",
-      },
+   
       colors: ['#25578e'],
       tooltip: {
         x: {

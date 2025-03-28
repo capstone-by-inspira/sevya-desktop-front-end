@@ -33,26 +33,26 @@
   } */
 
 /* LOGIN PAGE */
-  :root {
-    --primary-white: #ffffff;
-    --primary-blue: #001d3d;
-    --primary-green: #04ed98;
-    --primary-dark: #25578e;
-    --accent-pink: #f500e5;
-    --accent-yellow: #ffb700;
-    --accent-blue: #60efff;
-    --primary-gray: #d9d9d9;
-    --secondary-gray: #eeeeee;
-    --secondary-purple: #f7f2ff;
-    --primary-black: #4e4e4e;
-    --border-dark: #999999;
-  }
+:root {
+  --primary-white: #ffffff;
+  --primary-blue: #001d3d;
+  --primary-green: #04ed98;
+  --primary-dark: #25578e;
+  --accent-pink: #f500e5;
+  --accent-yellow: #ffb700;
+  --accent-blue: #60efff;
+  --primary-gray: #d9d9d9;
+  --secondary-gray: #eeeeee;
+  --secondary-purple: #f7f2ff;
+  --primary-black: #4e4e4e;
+  --border-dark: #999999;
+}
 
-  /* LOGIN PAGE */
+/* LOGIN PAGE */
 
 .login-page,
 .signup-page {
-  width: 100vw ;
+  width: 100vw;
   background-image: url(./assets/login-background.png);
   background-size: cover;
   background-position: center;
@@ -85,7 +85,7 @@
   align-items: center;
   gap: 1.5rem;
   color: var(--primary-white);
-  label{
+  label {
     color: var(--primary-white);
   }
   input {
@@ -128,24 +128,28 @@
 
 /* dashboard */
 .dashboard-page {
+  box-sizing: border-box;
   background-color: var(--background-blue);
-  padding: 0rem 1rem 0rem 1rem;
+  padding: 0rem 1.5rem 0rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3rem;
+  gap: 5rem;
 }
 .dashboard-header {
   width: 100%;
   img {
+    border-radius: 10px;
     width: 100%;
     height: 300px;
     object-fit: cover;
   }
 }
-.dashboard-body{
+.dashboard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   width: 100%;
-
 }
 
 .dashboard-cards {
@@ -155,7 +159,7 @@
   border: 1px solid var(--primary-gray);
   border-radius: 10px;
   padding: 2rem;
-  .data-length{
+  .data-length {
     position: absolute;
     left: 50%;
     top: 47%;
@@ -164,8 +168,7 @@
   }
 }
 
-.dashbaord-header{
-
+.dashbaord-header {
 }
 .dashboard-card-caregiver {
   background-color: var(--primary-white);
@@ -186,32 +189,36 @@
   }
 }
 
-  ul{
-    padding: 0;
+ul {
+  padding: 0;
+}
 
-  }
-
-.list-content{
+.list-content {
   display: flex;
   flex-direction: column;
   gap: 10px;
-
 }
-.dashboard-footer{
+.dashboard-footer {
   width: 100%;
 
   display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 .dashboard-first-container {
-  display: flex;
-  flex-flow: row wrap;
-  gap: 2rem;
-  padding: 2rem;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  padding: 0rem 0rem;
 }
-.dashboard-emergency-container{
+.dashboard-second-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  padding: 0rem 0rem;
+  justify-content: space-between;
+}
+.dashboard-emergency-container {
   box-sizing: border-box;
   background-color: var(--primary-medium-blue);
   padding: 2rem 4rem;
@@ -222,7 +229,7 @@ gap: 10px;
   gap: 2rem;
   margin-bottom: 10rem;
 
-  .dashboard-emergency-header{
+  .dashboard-emergency-header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -230,27 +237,23 @@ gap: 10px;
     gap: 10px;
     color: var(--primary-white) !important;
   }
-  .dashboard-emergency-left-container{
+  .dashboard-emergency-left-container {
     display: flex;
     flex-direction: row;
     gap: 10px;
     align-items: center;
-  
-
   }
-
 }
-.data-chart{
+.data-chart {
   display: flex !important;
   flex-direction: column !important;
   gap: 10px !important;
 }
 .css-nsbw82-MuiChartsLegend-root {
-
   position: relative;
   bottom: 0;
 }
-.emergency-list{
+.emergency-list {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -262,9 +265,8 @@ gap: 10px;
   background-color: var(--primary-white);
   padding: 1rem 2rem;
   border-radius: 10px;
-
 }
-.emergency-info{
+.emergency-info {
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -288,11 +290,11 @@ gap: 10px;
   border-radius: 10px;
 }
 .dashboard-left-container {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .caregiver-availability-chart-heading {
@@ -309,7 +311,7 @@ gap: 10px;
   height: 350px;
   overflow-y: auto;
 }
-.modal-form-footer{
+.modal-form-footer {
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -324,7 +326,7 @@ gap: 10px;
   margin: 10px;
   padding: 10px;
 }
-.caregiver-card-list{
+.caregiver-card-list {
   width: 100%;
 }
 .caregiver-card {
@@ -332,7 +334,6 @@ gap: 10px;
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  
 
   box-sizing: border-box;
   border: 1px solid var(--primary-gray);
@@ -346,29 +347,25 @@ gap: 10px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 
-    box-sizing: border-box;
-    border: 1px solid var(--primary-gray);
-    background-color: white;
-    align-items: center;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-    margin: 10px 0px;
-    padding: 10px;
-    border-radius: 10px;
-
-.caregiver-info{
-    display: flex;
-  flex-direction: row;
+  box-sizing: border-box;
+  border: 1px solid var(--primary-gray);
+  background-color: white;
   align-items: center;
-  gap: 10px;
-  
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  margin: 10px 0px;
+  padding: 10px;
+  border-radius: 10px;
 
-  
-  width: 100%;
- 
-  
-  cursor: move;
- 
+  .caregiver-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+
+    cursor: move;
   }
   i {
     display: none;
@@ -380,8 +377,8 @@ gap: 10px;
   justify-content: space-between;
   margin-top: 4rem;
 }
-.shift-scheduler{
-height: auto;
+.shift-scheduler {
+  height: auto;
   border-radius: 8px;
   margin-top: 10px;
   display: flex;
@@ -391,9 +388,9 @@ height: auto;
   gap: 1rem;
   margin-bottom: 20rem;
   padding: 2rem 1rem;
-background-color: var(--primary-white);
+  background-color: var(--primary-white);
 }
-.shift-scheduler-right-content{
+.shift-scheduler-right-content {
   width: 25%;
 }
 .patient-careigver-table {
@@ -401,7 +398,6 @@ background-color: var(--primary-white);
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
 }
 .patient-careigver-table-header {
   text-align: center;
@@ -411,17 +407,16 @@ background-color: var(--primary-white);
   display: flex;
   justify-content: space-between;
 }
-.patient-custom-table{
+.patient-custom-table {
   width: 100%;
   max-width: 1000px;
-    overflow: scroll;
+  overflow: scroll;
   padding: 1rem 0rem;
-  input{
+  input {
     max-width: 300px;
     border-radius: 20px;
     border: 1px solid var(--primary-gray);
     color: var(--primary-black);
-
   }
 }
 .caregiver-drag-cards-container {
@@ -436,38 +431,29 @@ background-color: var(--primary-white);
   height: 100vh;
   background-color: var(--background-blue);
 }
-.caregiver-list-container{
+.caregiver-list-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
   box-sizing: border-box;
-  input{
-    box-sizing: border-box;
-    width: 100%;
-    border-radius: 20px;
-    border: 1px solid var(--primary-gray);
-    color: var(--primary-black);
-padding: 10px;
-  }
+  
 }
-.patient-caregiver-drag-drop-table{
+.patient-caregiver-drag-drop-table {
   padding: 1rem;
 }
 
 .table-selectors {
   background-color: var(--primary-white);
   border-radius: 8px;
-gap: 2rem;
+  gap: 2rem;
   display: flex;
   flex-flow: row wrap;
   align-items: flex-end;
   justify-content: flex-start;
-  padding:0rem  0rem;
-
-  
+  padding: 0rem 0rem;
 }
-.table-selector-fields{
+.table-selector-fields {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -480,13 +466,12 @@ gap: 2rem;
     border-radius: 20px;
     border: 1px solid var(--primary-gray);
   }
-  button{
-    
+  button {
   }
 }
 .patients-table {
   border-radius: 8px;
-  padding: 20px ;
+  padding: 20px;
   border: 1px solid var(--primary-gray);
   text-align: center;
   td {
@@ -494,8 +479,6 @@ gap: 2rem;
   }
 
   .caregiver-card {
-    
-    
     display: flex;
     flex-direction: row;
     /* display: flex;
@@ -508,32 +491,28 @@ gap: 2rem;
     background-color: white;
     align-items: center;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     margin: 10px 0px;
     padding: 10px;
     border-radius: 10px;
 
-.caregiver-info{
-    display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  
+    .caregiver-info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
 
-  
-  width: 100%;
- 
-  
-  cursor: move;
- 
-  }
+      width: 100%;
 
-  i {
-    display: block;
+      cursor: move;
+    }
+
+    i {
+      display: block;
+    }
   }
 }
-}
-.patient-info{
+.patient-info {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -542,32 +521,52 @@ gap: 2rem;
 
 .caregiver-card-drop {
   display: flex;
-    border: 1px solid var(--primary-gray);
-    background-color: white;
-    width: 200px;
-    margin: 10px 0px;
-    padding: 10px;
-    height: 35px;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px inset;
-    border-radius: 10px;
-    justify-content: center;
-    align-items: center;
+  border: 1px solid var(--primary-gray);
+  background-color: white;
+  width: 200px;
+  margin: 10px 0px;
+  padding: 10px;
+  height: 35px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px inset;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 /* caregiver page */
-.caregiver-list-wrapper, .patient-list-wrapper{
+.caregiver-list-wrapper,
+.patient-list-wrapper {
   padding: 1rem 2rem;
 }
-.caregiver-page {
+.caregiver-page, .patients-page {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0rem;
+   padding: 1rem 1.5rem;
 }
-.caregiver-page-header {
+.caregiver-page-header, .patients-page-header {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   flex-flow: row;
-  padding: 10px;
+ 
+}
+.no-results{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+
+}
+.pageFunctions{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-flow: row;
+
+
 }
 
 /* caregiver page */
@@ -575,63 +574,104 @@ gap: 2rem;
 /* caregiver list */
 
 .cargiverdetails,
-.patientdetails{
+.patientdetails {
   border-top: solid var(--border-dark) 1.5px;
 }
 
-.caregiverslist1{
+.caregiverslist1 {
+  margin-bottom: 10rem;
   display: grid;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 1rem 0rem;
+  .userDetails {
+    display: flex;
+    align-items: center;
+
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .userHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    align-items: center;
+  }
+  .userleftSection {
+    display: flex;
+    flex-flow: column;
+  }
+  .userName {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-flow: row;
+  }
   
 }
-.caregiver-list-content{
-  border-radius: 8px!important;
+
+.userData{
+  display: grid;
+ grid-template-columns: 40% 30% 30%;
+
+}
+.userWork{
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  padding: 10px 0px 10px 10px;
+}
+.userMedicalCondtion, .userMedications{
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+  padding: 10px 0px 10px 10px;
+ ul{
+  list-style-type: square;
+  padding: 3px 20px;
+  margin: 0;
+ }
+
+}
+.caregiver-list-content {
+  border-radius: 8px !important;
   border-top: none !important;
 }
 .css-1808mag-MuiPaper-root-MuiAccordion-root::before {
-display: none !important;
+  display: none !important;
 }
 /* caregiver list */
 
 /* patients page */
-.patients-page {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.patients-page-header {
-  display: flex;
-  justify-content: space-between;
-  flex-flow: row;
-  padding: 10px;
-}
+
+
 /* patients page */
 
 /* Main Header*/
-.main-header-root h1{
+.main-header-root h1 {
   font-size: 20px;
   font-family: Lato;
   font-weight: bold;
 }
 
-
 /* Main Header*/
 
-.sevya-file-upload{
+.sevya-file-upload {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  
 }
 
 .file-upload-form {
   display: flex !important;
   align-items: center;
   justify-content: center;
+  padding: 2rem !important
+}
+.image-uploaded{
+  padding: 2rem !important;
 }
 .file-upload-label input {
   display: none;
@@ -668,37 +708,37 @@ display: none !important;
   background-color: rgb(14, 14, 14);
 }
 
-.availability-calendar{
+.availability-calendar {
   display: flex;
   gap: 20px;
 
-  .dates-list{
+  .dates-list {
     display: flex;
     flex-direction: row;
     gap: 10px;
     justify-content: center;
     align-items: center;
-    i{
+    i {
       color: red;
     }
   }
 }
-.react-calendar{
+.react-calendar {
   border: 1px dotted var(--primary-blue) !important;
   border-radius: 10px !important;
 }
 .react-calendar__tile--now {
-background-color: var(--primary-green) !important;
-border-radius: 50% !important;
-color: var(--primary-white) !important;
+  background-color: var(--primary-green) !important;
+  border-radius: 10px !important;
+  color: var(--primary-white) !important;
 }
 .react-calendar__tile--hasActive {
   background-color: var(--primary-blue) !important;
-  border-radius: 50% !important;
+  border-radius: 10px !important;
   color: var(--primary-white) !important;
 }
-.react-calendar__tile--active{
+.react-calendar__tile--active {
   background-color: var(--primary-blue) !important;
-  border-radius: 50% !important;
+  border-radius: 10px!important;
   color: var(--primary-white) !important;
 }

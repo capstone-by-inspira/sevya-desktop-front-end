@@ -8,7 +8,7 @@ import {
   Button,
 } from "@mui/material";
 
-const DashboardCardPatients = ({ patients , setActiveItem}) => {
+const DashboardCardPatients = ({ patients, setActiveItem }) => {
   const patient = patients;
   return (
     <div className="dashboard-card-caregiver">
@@ -20,32 +20,47 @@ const DashboardCardPatients = ({ patients , setActiveItem}) => {
             sx={{ width: 50, height: 50, bgcolor: "#10b981" }}
           >
             {!patient.profileImage &&
-              `${patient.firstName?.[0] || ""}${
-                patient.lastName?.[0] || ""
-              }`}
+              `${patient.firstName?.[0] || ""}${patient.lastName?.[0] || ""}`}
           </Avatar>
-          </div>
+        </div>
 
-          <div className="dashboard-user-info">
-              <p className="user-name">
-                {patient.firstName} {patient.lastName}
-              </p>
-              <p className="user-gender">Test</p>
-              <p className="user-specialization">{patient.medicalConditions?.join(", ")}</p>
-          </div>
-      
+        <div className="dashboard-user-info">
+          <p className="user-name">
+            {patient.firstName.charAt(0).toUpperCase() +
+              patient.firstName.slice(1)}{" "}
+            {patient.lastName.charAt(0).toUpperCase() +
+              patient.lastName.slice(1)}
+          </p>
 
+          <p className="user-gender">
+            {patient.gender?.charAt(0).toUpperCase() +
+              patient.gender?.slice(1).toLowerCase()}
+          </p>
+
+          <p className="user-specialization">
+            {patient.medicalConditions
+              ?.map(
+                (condition) =>
+                  condition.charAt(0).toUpperCase() +
+                  condition.slice(1).toLowerCase()
+              )
+              .join(", ")}
+          </p>
+        </div>
       </div>
       <div className="dashboard-card-right-content">
-          <button
+        <button
           className="sevya-button"
-            onClick={() => setActiveItem('patients')}
-          >
-            View Details
-          </button>
+          onClick={() => setActiveItem("patients")}
+        >
+          View Details
+          <div class="arrow-wrapper">
+            <div class="arrow"></div>
+          </div>
+        </button>
       </div>
     </div>
-  )
+  );
 };
 
 export default DashboardCardPatients;

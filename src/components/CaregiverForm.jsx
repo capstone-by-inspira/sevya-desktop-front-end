@@ -48,6 +48,8 @@ const CaregiverForm = ({
     lastName: "Spector",
     password: "",
     email: "",
+    age: "24",
+    gender: "Male",
     phoneNumber: "7788585133",
     licenseNumber: "9999",
     address: "Los Angeles",
@@ -142,7 +144,10 @@ const CaregiverForm = ({
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
-    console.log(file, 'uploadddlcnklnclancslnalcnsklcnlkcnaklnlascnlnacsnlacsnlkcasl');
+    console.log(
+      file,
+      "uploadddlcnklnclancslnalcnsklcnlkcnaklnlascnlnacsnlacsnlkcasl"
+    );
     setFileUpload(file);
     const uploadedImageUrl = await uploadImage(file);
     if (uploadedImageUrl.success) {
@@ -156,13 +161,13 @@ const CaregiverForm = ({
     }
   };
 
-
   const handleDateChange = (date) => {
     const formattedDate = date.toLocaleDateString("en-CA"); // 'en-CA' returns YYYY-MM-DD
 
     // Avoid mutating the state directly. Use the functional setState.
-  
-    setSelectedDates((prevDates = []) => {  // Ensure prevDates is always an array
+
+    setSelectedDates((prevDates = []) => {
+      // Ensure prevDates is always an array
       if (!prevDates.includes(formattedDate)) {
         return [...prevDates, formattedDate]; // Add the new date
       }
@@ -263,6 +268,25 @@ const CaregiverForm = ({
                     margin="normal"
                     onChange={handleChange}
                   />
+
+                  <TextField
+                    label="Age"
+                    name="age"
+                    value={caregiverData.age}
+                    fullWidth
+                    margin="normal"
+                    onChange={handleChange}
+                  />
+
+                  <TextField
+                    label="Gender"
+                    name="gender"
+                    value={caregiverData.gender}
+                    fullWidth
+                    margin="normal"
+                    onChange={handleChange}
+                  />
+
                   <TextField
                     label="Address"
                     name="address"
@@ -303,7 +327,9 @@ const CaregiverForm = ({
                 <div className="availability-calendar">
                   <Calendar
                     onChange={handleDateChange}
-                    value={selectedDates?.map((date) => new Date(date + 'T00:00:00'))} // Ensure local midnight time
+                    value={selectedDates?.map(
+                      (date) => new Date(date + "T00:00:00")
+                    )} // Ensure local midnight time
                     selectRange={false}
                   />
                   {selectedDates?.length > 0 ? (
@@ -382,6 +408,12 @@ const CaregiverForm = ({
                   <p>
                     <strong>Name:</strong> {caregiverData.firstName}{" "}
                     {caregiverData.lastName}
+                  </p>
+                  <p>
+                    <strong>Age:</strong> {caregiverData.age}
+                  </p>
+                   <p>
+                    <strong>Gender:</strong> {caregiverData.gender}
                   </p>
                   <p>
                     <strong>Email:</strong> {caregiverData.email}

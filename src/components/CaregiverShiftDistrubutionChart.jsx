@@ -9,9 +9,12 @@ const PieChartComponent = ({ data, chartTitle }) => {
 
   const formattedData = data.map((data, index) => ({
     name: `${data.firstName} ${data.lastName}`,
-    value: 200, // Example value, can be dynamic based on the data
+    value: data?.age, // Example value, can be dynamic based on the data
     color: colors[index % colors.length],
-    label: data?.specialization,
+    label: data?.specialization
+  ? data.specialization.charAt(0).toUpperCase() + data.specialization.slice(1).toLowerCase()
+  : data?.age,
+
   }));
 
   return (
@@ -23,7 +26,7 @@ const PieChartComponent = ({ data, chartTitle }) => {
         
       </div>
 
-      <p className="data-length">{data.length}</p>
+      <h3 className="data-length font-weight-300">{data.length}</h3>
 
       <PieChart
         className="data-chart"
