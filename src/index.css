@@ -322,6 +322,33 @@ label {
   background: #3d68ff;
   color: var(--primary-blue);
 }
+
+.emergency-sevya-button{
+  --primary-color: var(--primary-red);
+  --secondary-color: #fff;
+  --hover-color: var(--primary-medium-blue);
+  --arrow-width: 10px;
+  --arrow-stroke: 2px;
+
+  min-width: 150px;
+  max-width: fit-content;
+
+
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 50px;
+  color: var(--secondary-color);
+  padding: 10px 15px;
+  background: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s background;
+  gap: 0.6em;
+  font-family: "Lato", sans-serif !important;
+  font-size: clamp(12px, 4vw, 16px);
+  cursor: pointer;
+}
 .sevya-button {
   --primary-color: var(--primary-blue);
   --secondary-color: #fff;
@@ -350,6 +377,8 @@ label {
 
 
 }
+
+
 
 .sevya-button .arrow-wrapper {
   display: flex;
@@ -431,6 +460,7 @@ label {
 }
 
 .InputContainer {
+  max-width: 250px;
   height: 40px;
   display: flex;
   align-items: center;
@@ -775,9 +805,77 @@ label {
   }
 }
 
+
+@keyframes seesaw-shake {
+  0%, 100% {
+    transform: rotate(0deg); /* Start and end with no rotation */
+  }
+  25% {
+    transform: rotate(2deg); /* Tilt to the right */
+  }
+  50% {
+    transform: rotate(-2deg); /* Tilt to the left */
+  }
+  75% {
+    transform: rotate(2deg); /* Tilt to the right again */
+  }
+}
+
+
+
+.shake {
+  animation: seesaw-shake 0.4s infinite ;
+}
+
 .modal-sevya {
   background-color: white;
 }
+  .sevya-emergency {
+    
+    backdrop-filter: blur(10px) !important;
+    animation: mymove 3s linear infinite alternate !important;
+  }
+  
+  @keyframes mymove {
+    0% { background-color: rgba(255, 0, 0, 0.295);  }
+    50% { background-color: rgba(200, 0, 0, 0.5);  }
+    100% { background-color: rgba(122, 3, 3, 0.847);  }
+  }
+
+
+.modal-body-emergency{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.modal-body-content{
+  width: 300px;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+  padding: 2rem 0rem;
+  gap: 2rem;
+}
+.emergency-title{
+  h4{
+    color:var(--primary-red);
+  }
+}
+.emergency-body{
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  justify-content: flex-start;
+
+}
+
+
 
 .main-content-root {
   flex: 1;

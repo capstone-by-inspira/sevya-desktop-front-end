@@ -29,7 +29,7 @@ const PatientOccupancyChart = ({ patients, chartTitle }) => {
         min: 0,
       },
    
-      colors: ['#25578e'],
+      colors: ['#0fbfae'],
       tooltip: {
         x: {
           format: "dd MMM yyyy",

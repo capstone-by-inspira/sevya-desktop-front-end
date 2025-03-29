@@ -20,8 +20,8 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   const [dates, setDates] = useState(datesArray);
 
   const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
+    new Date().toLocaleDateString('en-CA') 
+    );
 
   const token = localStorage.getItem("token");
   const [patientsData, setPatientsData] = useState(patients);
@@ -129,12 +129,10 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     };
 
     updateShiftInPatient(patientId, updatedData, token);
-    updateShiftInShift(patientId, caregiver, time);
+    updateShiftInShift(patientId, caregiver, time, patientsData);
   };
 
   const removeCaregiver = async (caregiver, patientId, time) => {
-  
-
     // Update local state
     setPatientsData((prevPatients) =>
       prevPatients.map((p) => {
@@ -173,7 +171,6 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
       );
 
       if (patientUpdateResult.success) {
-
         console.log("Caregiver removed from patient document successfully");
         refreshData();
       } else {
@@ -209,7 +206,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
       );
 
       if (deleteResult.success) {
-        toast.success('Shift removed successfully')
+        toast.success("Shift removed successfully");
 
         console.log("Caregiver removed from shift successfully");
         refreshData();
@@ -233,7 +230,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
 
       refreshData();
       toast.success("Shift created successfully");
-    
+
       //   position: 'top-center',
 
       //   // Styling
@@ -265,10 +262,11 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     }
   };
 
-  const updateShiftInShift = async (patientId, caregiver, time) => {
+  const updateShiftInShift = async (patientId, caregiver, time, patientsData) => {
     console.log(patientId, "patientID >>>>>>>>>>>>>>");
     console.log(caregiver, "caregiver >>>>>>>>>>>>>>>>");
-
+// const currPatient = patientsData.filter((p)
+const shiftlocation = patientsData.find((p) => p.id === patientId).address
     const [startTime, endTime] = time.split(" - ");
     const utcStart = convertToUTC(selectedDate, startTime);
     const utcEnd = convertToUTC(selectedDate, endTime);
@@ -280,7 +278,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
       patientId: patientId,
       startTime: utcStart,
       endTime: utcEnd,
-      location: "Surrey, BC",
+      location: shiftlocation,
       shiftDate: selectedDate,
     };
 
@@ -337,14 +335,15 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
 
       <DndProvider backend={HTML5Backend}>
         <div className="patient-caregiver-drag-drop-table">
-          <h3>Shift Scheduling</h3>
+          <h3 >Shift Scheduling</h3>
 
           <div className="shift-scheduler">
-            <div className="shift-scheduler-left-content">
-              <div className="table-selectors">
+            {/* headerrr */}
+            <div className="shift-scheduler-header">
+            <div className="table-selectors">
                 <div className="table-selector-fields">
                   <label htmlFor="startDate" className="table-selector-label">
-                    Start Date:
+                    <p>Start Date:</p>
                   </label>
                   <input
                     id="startDate"
@@ -357,7 +356,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
 
                 <div className="table-selector-fields">
                   <label htmlFor="startTime" className="table-selector-label">
-                    Start Time:
+                    <p>Start Time:</p>
                   </label>
                   <input
                     id="startTime"
@@ -370,7 +369,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
 
                 <div className="table-selector-fields">
                   <label htmlFor="endTime" className="table-selector-label">
-                    End Time:
+                    <p>End Time:</p>
                   </label>
                   <input
                     id="endTime"
@@ -384,17 +383,24 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
                 <button onClick={addTimeSlot} className="sevya-button">
                   Confirm
                   <div class="arrow-wrapper">
-            <div class="arrow"></div>
-          </div>
+                    <div class="arrow"></div>
+                  </div>
                 </button>
               </div>
 
+            </div>
+            {/* headerrr */}
+
+            {/* body */}
+
+            <div className="shift-scheduler-body">
+            <div className="shift-scheduler-left-content">
+             
+
               <div className="patient-careigver-table">
-                <hr />
-                <div className="patient-careigver-table-header"></div>
                 <div className="patient-careigver-table-body">
                   <div className="patients-drop-table">
-                    <h4>
+                    <h4 className="font-weight-400">
                       Shifts Chart for {convertDateToFormat(selectedDate)}
                     </h4>
 
@@ -412,13 +418,18 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
             </div>
             <div className="shift-scheduler-right-content">
               <div className="caregiver-drag-cards-container">
-                <h5>Available Caregivers</h5>
+                <h4 className="font-weight-400">Available Caregivers</h4>
                 <CaregiverList
+                selectedDate={selectedDate}
                   caregivers={caregivers}
                   removeCaregiver={removeCaregiver}
                 />
               </div>
             </div>
+            </div>
+
+            {/* body */}
+
           </div>
         </div>
       </DndProvider>

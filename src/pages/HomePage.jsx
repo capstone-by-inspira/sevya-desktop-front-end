@@ -17,6 +17,8 @@ export const HomePage = () => {
   const [websocket, setWebsocket] = useState(null); // State to hold the WebSocket instance
 const [newNotification, setNewNotification] = useState(null);
 
+const [triggerAlert, setTriggerAlert] = useState([]);
+
   const token = localStorage.getItem("token");
 
 
@@ -57,6 +59,13 @@ const [newNotification, setNewNotification] = useState(null);
         setNewNotification(data.data);
         console.log(data.data, 'notifiacatiosssss');
       }
+      if(data.collection == 'emergency'){
+        const alertData = {
+          ...data.data,
+          alert:true,
+        }
+        setTriggerAlert(alertData);
+      }
       // notification(data);
     };
 
@@ -87,7 +96,7 @@ const [newNotification, setNewNotification] = useState(null);
 
   const fetchPatients = async () => {
     const result = await getDocuments("patients", token);
-    console.log(result, "ckjdsabkjbcasca");
+  //  console.log(result, "ckjdsabkjbcasca");
 
     if (result.success) {
       setPatients(result.data);
@@ -107,7 +116,7 @@ const [newNotification, setNewNotification] = useState(null);
 
   const fetchOccurences = async () => {
     const result = await getDocuments("emergency", token);
-    console.log(result, 'occc');
+  //  console.log(result, 'occc');
     if (result.success) {
       setOccurences(result.data);
     } else {
@@ -117,7 +126,7 @@ const [newNotification, setNewNotification] = useState(null);
 
   const fetchNotifications = async () => {
     const result = await getDocuments("notifications", token);
-    console.log(result, 'notifications');
+  //  console.log(result, 'notifications');
     if (result.success) {
      // setNewNotification(result.data);
     } else {
@@ -159,6 +168,7 @@ const [newNotification, setNewNotification] = useState(null);
             user={user}
             occurences={occurences}
             newNotification={newNotification}
+            triggerAlert={triggerAlert}
           />
         </div>
       </div>

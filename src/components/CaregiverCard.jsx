@@ -34,9 +34,13 @@ const CaregiverCard = ({ caregiver, removeCaregiver, time, patientId }) => {
           {!caregiver.profileImage &&
             `${caregiver.firstName?.[0] || ""}${caregiver.lastName?.[0] || ""}`}
         </Avatar>
-        <Typography component="span">
-          {caregiver.firstName} {caregiver.lastName}
-        </Typography>
+        <div className="caregiver-list-column">
+        <p>
+          {caregiver?.firstName?.charAt(0).toUpperCase() + caregiver?.firstName?.slice(1).toLowerCase()}{" "} 
+          {caregiver?.lastName?.charAt(0).toUpperCase() + caregiver?.lastName?.slice(1).toLowerCase()}
+        </p>
+
+        </div>
       </div>
       <div className="caregiver-remove">
       <i

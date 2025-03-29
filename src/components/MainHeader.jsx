@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Menu, MenuItem, IconButton } from '@mui/material';
 import BellNotification from './BellNotification';
+import EmergencyModal from './EmergencyModal';
 
-const MainHeader = ({ user , newNotification}) => {
+const MainHeader = ({ user , newNotification, triggerAlert, caregivers}) => {
   const navigate = useNavigate();
   
   // State for menu anchor
@@ -20,6 +21,8 @@ const MainHeader = ({ user , newNotification}) => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('shifts_info');
+
     navigate('/login');
     handleMenuClose();  // Close the menu after logout
   };
@@ -56,6 +59,7 @@ const MainHeader = ({ user , newNotification}) => {
           </Menu>
         </div>
       </div>
+      <EmergencyModal triggerAlert={triggerAlert} caregivers={caregivers}/>
     </header>
   );
 };

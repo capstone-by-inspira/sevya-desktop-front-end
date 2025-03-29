@@ -15,6 +15,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { InfoOutlined } from "@mui/icons-material";
 import PatientOccupancyChart from "../components/PatientsOccupanyChart";
 import SevyaLoader from "../components/SevyaLoader";
+import EmergencyModal from "../components/EmergencyModal";
 const Dashboard = ({
   caregivers,
   patients,
@@ -179,6 +180,7 @@ const Dashboard = ({
         <PatientForm />
 
         {/* <CaregiverForm/> */}
+        {/* <EmergencyModal occurrences={occ} caregivers={caregivers}/> */}
       </div>
     </>
   );

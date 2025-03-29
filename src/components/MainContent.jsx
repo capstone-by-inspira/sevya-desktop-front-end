@@ -15,7 +15,8 @@ const MainContent = ({
   refreshData,
   user,
   occurences,
-  newNotification
+  newNotification,
+  triggerAlert
 }) => {
   const [showHeaderControls, setShowHeaderControls] = useState(false);
 
@@ -37,9 +38,11 @@ const MainContent = ({
   return (
     <div className="main-content-root">
       <MainHeader
+      triggerAlert ={triggerAlert}
      newNotification={newNotification}
         user  = {user}
         setActiveItem={setActiveItem}
+        caregivers={caregivers}
     
         showHeaderControls={showHeaderControls}
       />

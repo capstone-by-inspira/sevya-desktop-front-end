@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import CaregiverCard from "./CaregiverCard";
 
-const CaregiverTestList = ({ caregivers, removeCaregiver }) => {
+const CaregiverTestList = ({ caregivers, removeCaregiver, selectedDate }) => {
+  console.log(selectedDate, 'selectedDAta');
+  console.log(caregivers, 'all caregoivers');
+
+
   const [searchQuery, setSearchQuery] = useState('');
+  const availableCaregivers = caregivers.filter(caregiver =>
+    caregiver.availability.includes(selectedDate)
+  );
+
 
   // Filter caregivers by name based on the search query
-  const filteredCaregivers = caregivers.filter(caregiver =>
+  const filteredCaregivers = availableCaregivers.filter(caregiver =>
     caregiver.firstName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -22,7 +30,7 @@ const CaregiverTestList = ({ caregivers, removeCaregiver }) => {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="search-input"
             />
-            <label class="labelforsearch" for="input">
+            <label class="labelforsearch" htmlFor="input">
               <svg
                 width="14"
                 height="15"
