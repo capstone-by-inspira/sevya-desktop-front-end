@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import EmergencyIcon from '../assets/emergencyIcon.png'
+import { formatTimestamp, formatDateOnly } from "../services/utils";
 const EmergencyModal = ({ triggerAlert, caregivers }) => {
   const [isModalOpen, setIsModalOpen] = useState(null);
   const audioRef = useRef(null);
@@ -25,7 +26,7 @@ const EmergencyModal = ({ triggerAlert, caregivers }) => {
       setTimeout(() => setIsShaking(false), 2000);
       playNotificationSound();
     } else {
-      setIsModalOpen(true);
+      setIsModalOpen(null);
 
       stopNotificationSound();
     }
@@ -87,8 +88,8 @@ const EmergencyModal = ({ triggerAlert, caregivers }) => {
                  
                   <div className="emergency-body">
                     <p><span className="font-weight-400">Caregiver :</span> {caregiverEmergency?.firstName} {caregiverEmergency?.lastName} </p>
-                    <p><span className="font-weight-400">Location :</span> {caregiverEmergency?.location}</p>
-                    <p><span className="font-weight-400">Time :</span> {caregiverEmergency?.time}</p>
+                    {/* <p><span className="font-weight-400">Location :</span> {caregiverEmergency?.location}</p> */}
+                    <p><span className="font-weight-400">Time :</span> {formatTimestamp(triggerAlert?.timestamp)}</p>
                   </div>
                   <button className="emergency-sevya-button" onClick={close}>
                     Acknowledge
