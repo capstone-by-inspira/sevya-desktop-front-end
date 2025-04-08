@@ -1,3 +1,5 @@
+import { createDocument } from "./api";
+
 export const formatTimestamp = (timestamp, timeZone = "UTC") => {
     const date = new Date(timestamp);
   
@@ -60,3 +62,11 @@ export const formatTimestamp = (timestamp, timeZone = "UTC") => {
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   };
   
+  export const createNotification  = async (data) =>{
+    const result = await createDocument("notificationsMobile", data, localStorage.getItem("token"));
+    if (result.success) {
+      console.log("Shift created");
+    } else {
+      console.error(result.error);
+    }
+  }

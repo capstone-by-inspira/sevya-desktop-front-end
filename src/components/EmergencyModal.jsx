@@ -9,7 +9,7 @@ const EmergencyModal = ({ triggerAlert, caregivers }) => {
   const [caregiverEmergency, setCaregiverEmergency] = useState(null);
 
   console.log(caregivers, "alert>>>>>>>>>>>>");
-  console.log(triggerAlert, "alert>>>>>>>>>>>>");
+  console.log(triggerAlert, "triggerAlert>>>>>>>>>>>>");
   //   console.log(occurrences, 'asston');
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const EmergencyModal = ({ triggerAlert, caregivers }) => {
                   </div>
                  
                   <div className="emergency-body">
-                    <p><span className="font-weight-400">Caregiver :</span> {caregiverEmergency?.firstName} {caregiverEmergency?.lastName} </p>
+                 {caregiverEmergency?.firstName? <p><span className="font-weight-400">Caregiver :</span> {caregiverEmergency?.firstName} {caregiverEmergency?.lastName} </p>: <></>}   
                     {/* <p><span className="font-weight-400">Location :</span> {caregiverEmergency?.location}</p> */}
                     <p><span className="font-weight-400">Time :</span> {formatTimestamp(triggerAlert?.timestamp)}</p>
                   </div>

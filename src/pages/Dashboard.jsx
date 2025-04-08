@@ -40,11 +40,10 @@ const Dashboard = ({
 
   return (
     <>
-      <div id="root-not-available">
-        <h1>Please open the admin portal on desktop</h1>
-      </div>
-
-      {loading ? <SevyaLoader /> : <></>}
+      
+      {loading ? <div className="dashboard-loader">
+        <SevyaLoader />
+        </div> : <></>}
       <div className="dashboard-page">
         <div className="dashboard-header">
           <img src={landingImage} />

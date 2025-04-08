@@ -14,6 +14,7 @@ import PatientForm from "./PatientForm";
 import Avatar from "@mui/material/Avatar";
 import { Box } from "@mui/material";
 import { formatDateOnly ,formatTimestamp} from "../services/utils";
+
 const PatientList = ({ patients, refreshData, closeForm, openForm }) => {
   const token = localStorage.getItem("token");
   const [singlePatientData, setSinglePatientData] = useState();

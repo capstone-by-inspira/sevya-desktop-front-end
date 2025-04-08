@@ -55,7 +55,7 @@ const MainHeader = ({ user , newNotification, triggerAlert, caregivers}) => {
               'aria-labelledby': 'basic-button',
             }}
           >
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout, see you next time !</MenuItem>
           </Menu>
         </div>
       </div>

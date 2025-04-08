@@ -4,9 +4,12 @@ import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import Caregiver from "../pages/Caregiver";
 // export const API_URL = "http://3.227.60.242:8808";
 export const API_URL = "https://sevya-admin.site:8808";
+// export const API_URL = "http://localhost:8808";
 
 // export const API_URL = "http://localhost:8800";
 export const WS_URL = "wss://sevya-admin.site:8808";
+
+// export const WS_URL = "ws://localhost:8808";
 // export const API_URL = "https://sevya-desktop-back-end.vercel.app/";
 
 export const signup = async (user) => {

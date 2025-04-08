@@ -9,8 +9,9 @@ import {
   createDocument,
   deleteDocument,
 } from "../services/api";
-import { convertToUTC, convertDateToFormat } from "../services/utils";
+import { convertToUTC, convertDateToFormat, createNotification } from "../services/utils";
 import toast, { Toaster } from "react-hot-toast";
+import { data } from "react-router";
 
 const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
   // console.log(shifts);
@@ -46,7 +47,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     });
 
     // Get unique time slots using Set
-    const uniqueTimeSlots = [...new Set(allTimeSlots)];
+  const uniqueTimeSlots = [...new Set(allTimeSlots)];
 
     console.log(uniqueTimeSlots, "Unique Time Slots for selected date");
 
@@ -114,7 +115,15 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     );
 
     // Prepare the updated data for the backend (only update the specific shift)
-
+const dataNotify = {
+  shift: selectedDate,
+  patientId: patientId,
+  caregiverId: caregiver ? caregiver.id : null,
+  time:time,
+  title:'Shift Created',
+  message: `Shift has been created for ${caregiver.firstName} at ${time} on ${selectedDate}`
+}
+console.log(dataNotify, 'data notify');
     const updatedData = {
       shifts: {
         ...patientsData.find((p) => p.id === patientId).shifts, // Keep existing shifts
@@ -130,10 +139,19 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
 
     updateShiftInPatient(patientId, updatedData, token);
     updateShiftInShift(patientId, caregiver, time, patientsData);
+    createNotification(dataNotify);
   };
 
   const removeCaregiver = async (caregiver, patientId, time) => {
     // Update local state
+    const dataNotify = {
+      shift: selectedDate,
+      patientId: patientId,
+      caregiverId: caregiver ? caregiver.id : null,
+      time:time,
+      title:'Shift Removed',
+      message: `Shift has been removed for ${caregiver.firstName} at ${time} on ${selectedDate}`
+    }
     setPatientsData((prevPatients) =>
       prevPatients.map((p) => {
         if (p.id === patientId) {
@@ -207,6 +225,7 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
 
       if (deleteResult.success) {
         toast.success("Shift removed successfully");
+        createNotification(dataNotify);
 
         console.log("Caregiver removed from shift successfully");
         refreshData();
@@ -228,8 +247,12 @@ const ShiftMainBoardTable = ({ caregivers, patients, refreshData, shifts }) => {
     if (result.success) {
       console.log("Shift Updated:", result.data);
 
+
       refreshData();
       toast.success("Shift created successfully");
+      
+      console.log(patientsData, 'shift ????????');
+     // createNotification()
 
       //   position: 'top-center',
 

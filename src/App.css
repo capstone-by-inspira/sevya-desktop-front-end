@@ -64,6 +64,14 @@
   flex-direction: column;
   gap: 3rem;
 }
+
+.login-header, .signup-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+color: var(--primary-white);
+}
 .login-form,
 .signup-form {
   background-color: #ffffff3b;
@@ -88,16 +96,21 @@
   label {
     color: var(--primary-white);
   }
+  label{
+    font-weight: 300;
+  }
   input {
     width: 250px;
     padding: 1rem;
-    border-radius: 10px;
+    border-radius: 50px;
     border: 1px solid black;
   }
 }
+.create-one{
+text-decoration: underline;
+}
 .logo-slogan {
   font-weight: 300;
-  color: var(--primary-black);
 }
 .password-input-wrapper {
   width: 100%;
@@ -127,6 +140,9 @@
 /* LOGIN PAGE */
 
 /* dashboard */
+.dashboard-loader{
+  padding-left: 5rem !important;
+}
 .dashboard-page {
   box-sizing: border-box;
   background-color: var(--background-blue);
@@ -136,6 +152,7 @@
   align-items: center;
   gap: 5rem;
 }
+
 .dashboard-header {
   width: 100%;
   img {
@@ -162,7 +179,7 @@
   .data-length {
     position: absolute;
     left: 50%;
-    top: 47%;
+    top: 55%;
     font-size: 2rem;
     transform: translate(-50%, -50%);
   }
@@ -415,6 +432,7 @@ ul {
 
 }
 .shift-scheduler-right-content {
+  height: 100vh;
   width: 25%;
 }
 .patient-careigver-table {
@@ -440,6 +458,7 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  height: 850px;
 
 }
 .caregiver-drag-cards-container {
@@ -751,7 +770,11 @@ ul {
 
 .availability-calendar {
   display: flex;
-  gap: 20px;
+
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+
 
   .dates-list {
     display: flex;
@@ -763,23 +786,90 @@ ul {
       color: red;
     }
   }
+  ul{
+    width: 30%;
+  }
 }
 .react-calendar {
-  border: 1px dotted var(--primary-blue) !important;
+  width: 100% !important;
+  border: 1px dotted var(--primary-green) !important;
+  color:var(--primary-blue) !important;
   border-radius: 10px !important;
+  padding: 2px !important;
+
 }
 .react-calendar__tile--now {
   background-color: var(--primary-green) !important;
   border-radius: 10px !important;
   color: var(--primary-white) !important;
+  max-width: 35px !important;
+
+
+  margin: 0px 11px !important;
+
 }
 .react-calendar__tile--hasActive {
   background-color: var(--primary-blue) !important;
-  border-radius: 10px !important;
   color: var(--primary-white) !important;
+  border-radius: 10px !important;
+
+  max-width: 35px !important;
+
+
+  margin: 0px 11px !important;
+
 }
 .react-calendar__tile--active {
   background-color: var(--primary-blue) !important;
-  border-radius: 10px!important;
   color: var(--primary-white) !important;
+
+  border-radius: 10px!important;
+  max-width: 35px !important;
+
+
+  margin: 0px 11px !important;
+
+  
+
+
+}
+
+
+.resume-output {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  color: rgb(0, 0, 0);
+}
+
+
+.css-1tktgsa-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+  left: 55% !important;
+  max-width: 500px !important;
+
+width: 100% !important;
+right: 50% !important;
+top:76px !important;
+padding: 10px;
+
+}
+.notificationBox{
+
+
+
+
+}
+
+.notificationCard{
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: 1rem;
+  padding: 10px;
+  border-bottom: 1px solid var(--primary-gray);
+
+
 }

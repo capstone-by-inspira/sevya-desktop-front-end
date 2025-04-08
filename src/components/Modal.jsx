@@ -1,30 +1,27 @@
 import React, { useState, useEffect } from "react";
+import SevyaLoader from "../components/SevyaLoader";
 
 const Modal = ({
   modalHeaderTitle = "",
   modalBodyHeader = "",
   modalBodyContent = "",
   isOpen,
-  closeModal
+  closeModal,
 }) => {
-
   const [isModalOpen, setIsModalOpen] = useState(isOpen);
-  
 
   useEffect(() => {
-    setIsModalOpen(isOpen); 
+    setIsModalOpen(isOpen);
   }, [isOpen]);
 
-  
-  
   const close = () => {
     setIsModalOpen(false);
-    closeModal(); 
+    closeModal();
   };
 
   return (
     <div className="custom-modal-maker">
-    
+
       <div
         id="modal-container"
         className={`${
@@ -37,15 +34,18 @@ const Modal = ({
             : ""
         }`}
       >
+ 
+
         <div className="modal-background">
+
+       
           <div className="modal-sevya">
+
+          
             <div className="modal-header">
               <div className="modal-header-title">
                 <h4>{modalHeaderTitle}</h4>
-                <i
-                  className="fa-solid fa-xmark close"
-                  onClick={close}
-                ></i>
+                <i className="fa-solid fa-xmark close" onClick={close}></i>
               </div>
             </div>
 

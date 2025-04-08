@@ -40,6 +40,15 @@ const PatientOccupancyChart = ({ patients, chartTitle }) => {
 
   // Helper function to calculate the occupancy over time
   const calculateOccupancyData = () => {
+
+     const dataPointsByAgeRange = {
+      "10-20": [],
+      "21-30": [],
+      "31-40": [],
+      "41-50": [],
+      "51-60": [],
+      "60+": [],
+    };
     const dataPoints = [];
     const occupancyMap = {};
 

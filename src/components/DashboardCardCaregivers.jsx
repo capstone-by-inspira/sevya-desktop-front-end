@@ -28,10 +28,15 @@ const DashboardCardCaregivers = ({ caregivers, setActiveItem }) => {
 
         <div className="dashboard-user-info">
           <p className="user-name">
-            {caregiver.firstName} {caregiver.lastName}
+            {caregiver?.firstName.charAt(0).toUpperCase() +
+              caregiver?.firstName.slice(1) || "N.A."}{" "}
+            {caregiver?.lastName.charAt(0).toUpperCase() +
+              caregiver?.lastName.slice(1) || "N.A."}
           </p>
-          <p className="user-gender">{caregiver.gender}</p>
-          <p className="user-specialization">{caregiver.specialization}</p>
+          <p className="user-gender">{caregiver?.gender.charAt(0).toUpperCase() +
+              caregiver?.gender.slice(1) || "N.A."}{" "}</p>
+          <p className="user-specialization">  {caregiver?.specialization.charAt(0).toUpperCase() +
+              caregiver?.specialization.slice(1) || "N.A."}{" "}</p>
         </div>
       </div>
       <div className="dashboard-card-right-content">
@@ -40,7 +45,6 @@ const DashboardCardCaregivers = ({ caregivers, setActiveItem }) => {
           onClick={() => setActiveItem("caregiver")}
         >
           View Details
-          
           <div class="arrow-wrapper">
             <div class="arrow"></div>
           </div>
